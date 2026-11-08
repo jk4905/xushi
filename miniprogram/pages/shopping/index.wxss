@@ -1,0 +1,8 @@
+.count{font-size:28px;font-weight:500}.title{margin-bottom:8px}.notice{padding:16px;background:#e2ed9c;border-radius:14px;font-size:14px;margin-bottom:20px}.list{padding:0 16px}.ingredient{display:flex;text-align:left;align-items:center;gap:12px;padding:18px 0;background:transparent;border-radius:0;min-height:80px;border-bottom:1px solid #d7dec8;width:100%;font-weight:400}.ingredient:last-child{border:0}.ingredient.is-ready .row-title{color:#52664b}.quantity{text-align:right;font-size:15px;max-width:40%;overflow-wrap:anywhere}.section-head>.muted{font-size:12px}
+
+.ingredient{transition:opacity 140ms ease-out}
+.ingredient.ingredient-pressed{opacity:.8}
+.ingredient .row-title{transition:color 180ms ease-out}
+.check{transition:background-color 180ms ease-out,border-color 180ms ease-out}
+.check-mark{display:block;opacity:0;transform:scale(.6) rotate(-15deg);transition:opacity 140ms ease-out,transform 200ms cubic-bezier(.2,.8,.2,1)}
+.checked .check-mark{opacity:1;transform:scale(1) rotate(0)}

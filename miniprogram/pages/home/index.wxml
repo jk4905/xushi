@@ -1,0 +1,7 @@
+<view class="page with-tabs">
+ <view class="eyebrow">一餐一餐，好好吃饭</view><view class="title"><view>把想吃的，</view><view>做成这一餐。</view></view>
+ <view wx:if="{{error}}" class="error" role="alert">{{error}}<button class="text-button" bindtap="backup">查看本地备份</button></view>
+ <view wx:if="{{meal}}" class="current card"><view class="section-head"><text class="pill">{{cooking ? '正在下厨' : '准备食材'}}</text><text class="muted">{{meal.date || '这一次'}}</text></view><view class="meal-title">{{meal.title}}</view><view class="names">{{names}}</view><image class="meal-art" src="/assets/meal.png" mode="aspectFit" aria-hidden="true"/><view class="muted">{{cooking ? '上次看到的做法，已为你留好位置。' : '已备齐 '+prepared+' / '+total+' 项食材'}}</view><button class="primary" hover-stay-time="80" bindtap="resume">{{cooking ? '接着做饭' : '接着准备'}}<text class="arrow">→</text></button></view>
+ <view wx:else class="empty card"><image class="empty-art" src="/assets/meal.png" mode="aspectFit" aria-hidden="true"/><view class="section-title">从想吃的菜开始</view><view class="muted"><view>选几道菜，汇成买菜清单。</view><view>备齐后，打开做法慢慢做。</view></view><button class="primary" hover-stay-time="80" bindtap="arrange">安排第一餐</button></view>
+ <view class="section-head"><button wx:if="{{meal}}" class="text-button" bindtap="arrange">＋ 安排另一餐</button><button class="text-button" bindtap="history">全部餐次 →</button></view>
+</view>

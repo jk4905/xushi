@@ -1,0 +1,1 @@
+.meal-title{margin:4px 0 8px}.meal-dishes{overflow-wrap:anywhere}.meal-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}.meal-actions button{flex:1 1 120px}.meal-more{gap:4px;margin:10px -10px -8px}.meal-card .muted{overflow-wrap:anywhere}

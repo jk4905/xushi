@@ -1,0 +1,38 @@
+<view class="page with-tabs">
+  <view class="eyebrow">煦食 · 每一餐</view>
+  <view class="title">好好吃过的日子</view>
+  <view class="subtitle">继续准备，或把喜欢的一餐再做一次。</view>
+  <view wx:if="{{error}}" class="error" role="alert">{{error}}</view>
+
+  <view class="segmented">
+    <button class="{{status === 'planned' ? 'active' : ''}}" data-status="planned" bindtap="changeStatus" disabled="{{saving}}" aria-label="待做 {{counts.planned}} 餐，{{status === 'planned' ? '当前选项' : '切换选项'}}">待做 {{counts.planned}}</button>
+    <button class="{{status === 'completed' ? 'active' : ''}}" data-status="completed" bindtap="changeStatus" disabled="{{saving}}" aria-label="做过 {{counts.completed}} 餐，{{status === 'completed' ? '当前选项' : '切换选项'}}">做过 {{counts.completed}}</button>
+    <button class="{{status === 'cancelled' ? 'active' : ''}}" data-status="cancelled" bindtap="changeStatus" disabled="{{saving}}" aria-label="已取消 {{counts.cancelled}} 餐，{{status === 'cancelled' ? '当前选项' : '切换选项'}}">已取消 {{counts.cancelled}}</button>
+  </view>
+
+  <view wx:if="{{!meals.length}}" class="empty">
+    <view class="row-title">{{status === 'planned' ? '还没有待做的一餐' : (status === 'completed' ? '还没有做过的餐' : '没有已取消的餐')}}</view>
+    <view class="muted">{{status === 'planned' ? '从想吃的菜开始，安排一餐。' : (status === 'completed' ? '做好的一餐，会留在这里。' : '取消的餐会留在这里，随时可以恢复。')}}</view>
+    <button wx:if="{{status === 'planned'}}" class="primary" bindtap="newMeal" disabled="{{saving}}">安排一餐</button>
+  </view>
+
+  <view wx:for="{{meals}}" wx:key="id" class="card meal-card">
+    <view class="muted">{{item.date || '未定日期'}}</view>
+    <view class="section-title meal-title">{{item.title}}</view>
+    <view class="muted meal-dishes">{{item.names}}</view>
+    <view wx:if="{{item.status === 'planned'}}" class="meal-actions">
+      <button class="primary" hover-stay-time="80" data-id="{{item.id}}" data-page="shopping" bindtap="continueMeal" disabled="{{saving}}">继续买菜</button>
+      <button class="secondary" hover-stay-time="80" data-id="{{item.id}}" data-page="cook" bindtap="continueMeal" disabled="{{saving}}">继续做饭</button>
+    </view>
+    <view wx:else class="meal-actions">
+      <button class="primary" hover-stay-time="80" data-id="{{item.id}}" bindtap="repeatMeal" disabled="{{saving}}">再做一餐</button>
+      <button class="secondary" hover-stay-time="80" data-id="{{item.id}}" bindtap="restoreMeal" disabled="{{saving}}">恢复为待做</button>
+    </view>
+    <view class="inline-actions meal-more">
+      <button class="text-button" data-id="{{item.id}}" bindtap="saveAsMenu" disabled="{{saving}}">存为常做菜单</button>
+      <button wx:if="{{item.status === 'planned'}}" class="text-button" data-id="{{item.id}}" bindtap="editMeal" disabled="{{saving}}">编辑这餐</button>
+      <button wx:if="{{item.status === 'planned'}}" class="text-button danger" data-id="{{item.id}}" bindtap="cancelMeal" disabled="{{saving}}">取消这餐</button>
+    </view>
+  </view>
+  <app-tabs active="home" />
+</view>

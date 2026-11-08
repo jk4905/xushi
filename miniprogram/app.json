@@ -1,0 +1,9 @@
+{
+  "pages": ["pages/home/index", "pages/library/index", "pages/builder/index", "pages/shopping/index", "pages/cook/index", "pages/recipe/index", "pages/recipe-edit/index", "pages/adjust/index", "pages/history/index", "pages/backup/index"],
+  "window": {"navigationBarTitleText":"煦食", "navigationBarBackgroundColor":"#EAF0D9", "navigationBarTextStyle":"black", "backgroundColor":"#EAF0D9", "backgroundTextStyle":"dark"},
+  "tabBar": {"custom":true, "color":"#52664B", "selectedColor":"#173D2B", "backgroundColor":"#F3F6E8", "list":[{"pagePath":"pages/home/index","text":"做饭","iconPath":"assets/tab-cook.png","selectedIconPath":"assets/tab-cook.png"},{"pagePath":"pages/library/index","text":"菜谱","iconPath":"assets/tab-book.png","selectedIconPath":"assets/tab-book.png"}]},
+  "usingComponents":{"app-tabs":"/components/app-tabs/index"},
+  "style":"v2",
+  "sitemapLocation":"sitemap.json",
+  "lazyCodeLoading":"requiredComponents"
+}

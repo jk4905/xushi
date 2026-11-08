@@ -1,0 +1,13 @@
+:host{display:block}.tabs{position:fixed;left:0;right:0;bottom:0;z-index:50;display:flex;padding:6px 24px calc(6px + env(safe-area-inset-bottom));background:#f3f6e8;border-top:1px solid #c5cfb2;box-sizing:border-box}.tab{position:relative;z-index:1;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-height:52px;margin:0;background:transparent;color:#52664b;font-size:12px;line-height:18px;border-radius:16px;padding:4px;border:0}.tab::after{border:0}.tab-icon{width:23px;height:23px;opacity:.6}.selected{color:#173d2b;font-weight:600}.selected .tab-icon{opacity:1}
+
+.tab-indicator{position:absolute;left:24px;top:6px;bottom:calc(6px + env(safe-area-inset-bottom));width:calc(50% - 24px);border-radius:16px;background:#e2ed9c;pointer-events:none;transform:translateX(0)}
+.tab-indicator.at-library{transform:translateX(100%)}
+.tab-indicator.at-library.slide-from-home{animation:tab-to-library 240ms cubic-bezier(.4,0,.6,1)}
+.tab-indicator.slide-from-library{animation:tab-to-home 240ms cubic-bezier(.4,0,.6,1)}
+@keyframes tab-to-library{from{transform:translateX(0)}to{transform:translateX(100%)}}
+@keyframes tab-to-home{from{transform:translateX(100%)}to{transform:translateX(0)}}
+
+.tab{transition:background-color 160ms ease-out,color 160ms ease-out}
+.tab-icon{transition:transform 120ms ease-out,opacity 160ms ease-out}
+.tab-pressed .tab-icon{transform:scale(.9)}
+@media(prefers-reduced-motion:reduce){.tab,.tab-icon{transition:none!important}.tab-pressed .tab-icon{transform:none}.tab-indicator{animation:none!important}}

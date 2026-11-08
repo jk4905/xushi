@@ -1,0 +1,46 @@
+<view class="page with-tabs">
+  <view class="section-head">
+    <view><view class="eyebrow">煦食 · 自己的厨房</view><view class="title">菜谱</view></view>
+    <button class="text-button settings-link" bindtap="openBackup">设置与备份</button>
+  </view>
+  <view class="subtitle">想做的菜，留在这里。</view>
+  <view class="segmented">
+    <button class="{{section === 'recipes' ? 'active' : ''}}" data-section="recipes" bindtap="setSection" aria-label="菜谱{{section === 'recipes' ? '，已选中' : ''}}">菜谱</button>
+    <button class="{{section === 'menus' ? 'active' : ''}}" data-section="menus" bindtap="setSection" aria-label="常做菜单{{section === 'menus' ? '，已选中' : ''}}">常做菜单</button>
+  </view>
+  <input class="input search" value="{{query}}" bindinput="onSearch" maxlength="100" placeholder="{{section === 'recipes' ? '搜索菜名或材料' : '搜索菜单或菜名'}}" aria-label="{{section === 'recipes' ? '搜索菜名或材料' : '搜索菜单或菜名'}}" confirm-type="search" />
+  <view wx:if="{{error}}" class="error" role="alert">{{error}}</view>
+  <block wx:if="{{section === 'recipes'}}">
+    <button class="primary" hover-stay-time="80" bindtap="addRecipe">＋ 链接添加菜谱</button>
+    <view wx:if="{{!recipeCount}}" class="empty">
+      <view class="row-title">还没有自己的菜谱</view>
+      <view class="muted">先存一道想做的菜，也可以添加原始三道菜谱。</view>
+      <button class="secondary example-button" hover-stay-time="80" bindtap="addExamples" loading="{{saving}}" disabled="{{saving}}">添加原始三道菜谱</button>
+      <view class="muted small">勃艮第炖牛肉、蒜香西兰花、米饭</view>
+    </view>
+    <view wx:elif="{{!recipes.length}}" class="empty"><view class="row-title">没有找到这道菜</view><view class="muted">换个菜名或材料试试。</view></view>
+    <view wx:else class="card library-list">
+      <button wx:for="{{recipes}}" wx:key="id" class="row recipe-row" data-id="{{item.id}}" bindtap="openRecipe" aria-label="查看{{item.name}}">
+        <view class="row-main"><view class="row-title">{{item.name}}</view><view class="muted recipe-summary">{{item.detail}}</view></view>
+        <text class="muted" aria-hidden="true">›</text>
+      </button>
+    </view>
+  </block>
+  <block wx:else>
+    <button class="primary" hover-stay-time="80" bindtap="openMenu">＋ 新建常做菜单</button>
+    <view wx:if="{{!menuCount}}" class="empty"><view class="row-title">把常做的搭配存下来</view><view class="muted">挑几道自己的菜，下次安排更方便。</view></view>
+    <view wx:elif="{{!menus.length}}" class="empty"><view class="row-title">没有找到这份菜单</view><view class="muted">换个菜单名或菜名试试。</view></view>
+    <view wx:else class="menu-list">
+      <view wx:for="{{menus}}" wx:key="id" class="card">
+        <button class="row recipe-row" data-id="{{item.id}}" bindtap="openMenu" aria-label="编辑菜单{{item.title}}">
+          <view class="row-main"><view class="row-title">{{item.title}}</view><view class="muted long-text">{{item.dishes}}</view></view>
+          <text class="pill">{{item.count}} 道菜</text>
+        </button>
+        <view class="menu-actions">
+          <button class="text-button" data-id="{{item.id}}" bindtap="openMenu">编辑</button>
+          <button class="text-button danger" data-id="{{item.id}}" bindtap="deleteMenu" disabled="{{saving}}" aria-label="删除菜单{{item.title}}">删除菜单</button>
+        </view>
+      </view>
+    </view>
+  </block>
+</view>

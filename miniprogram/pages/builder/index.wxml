@@ -1,0 +1,71 @@
+<view class="page editor-page">
+  <view class="eyebrow">煦食 · {{mode === 'menu' ? '常做菜单' : '安排一餐'}}</view>
+  <view class="title">{{mode === 'menu' ? (id ? '编辑常做菜单' : '留一份常做菜单') : '这餐想做什么'}}</view>
+  <view class="subtitle">{{mode === 'menu' ? '选好菜，留作下次使用。' : '选好菜，就可以开始准备。餐名和日期可以不填。'}}</view>
+  <view wx:if="{{error}}" class="error" role="alert">{{error}}</view>
+
+  <view class="field search">
+    <label class="label" for="recipe-search">找一道菜</label>
+    <input id="recipe-search" class="input" data-field="query" value="{{query}}" placeholder="搜索菜名或材料" aria-label="搜索菜名或材料" maxlength="100" confirm-type="search" cursor-spacing="24" adjust-position="{{true}}" disabled="{{saving || committed}}" bindinput="onInput" bindfocus="onFocus" bindblur="onBlur" bindkeyboardheightchange="onKeyboardHeightChange" />
+  </view>
+
+  <view wx:if="{{mode === 'meal' && !id}}" class="segmented">
+    <button class="{{section === 'recipes' ? 'active' : ''}}" data-section="recipes" bindtap="switchSection" disabled="{{saving || committed}}" aria-label="菜谱，{{section === 'recipes' ? '当前选项' : '切换选项'}}">菜谱</button>
+    <button class="{{section === 'menus' ? 'active' : ''}}" data-section="menus" bindtap="switchSection" disabled="{{saving || committed}}" aria-label="常做菜单，{{section === 'menus' ? '当前选项' : '切换选项'}}">常做菜单</button>
+  </view>
+
+  <block wx:if="{{section === 'recipes' || mode === 'menu' || id}}">
+    <checkbox-group bindchange="onRecipesChange" aria-label="选择这餐的菜">
+      <view wx:if="{{recipes.length}}" class="card recipe-list">
+        <label wx:for="{{recipes}}" wx:key="id" class="row recipe-choice">
+          <checkbox value="{{item.id}}" checked="{{item.checked}}" color="#173D2B" disabled="{{saving || committed}}" aria-label="{{item.name}}" />
+          <view class="row-main">
+            <view class="row-title">{{item.name}}</view>
+            <view class="muted recipe-ingredients">{{item.ingredients}}</view>
+          </view>
+        </label>
+      </view>
+    </checkbox-group>
+    <view wx:if="{{!recipes.length}}" class="empty">
+      <view class="row-title">{{recipeCount ? '没有找到这道菜' : '先放一道想做的菜'}}</view>
+      <view class="muted">{{recipeCount ? '换个菜名或材料试试。' : '用原做法链接添加，不用现在填完整配方。'}}</view>
+    </view>
+  </block>
+  <block wx:else>
+    <view wx:if="{{menus.length}}" class="muted menu-hint">选一份菜单，再按这餐的需要调整菜品。</view>
+    <button wx:for="{{menus}}" wx:key="id" class="card menu-choice {{item.checked ? 'menu-selected' : ''}}" data-id="{{item.id}}" bindtap="chooseMenu" disabled="{{saving || committed}}" aria-label="{{item.title}}，{{item.checked ? '已选' : '选择这份菜单'}}">
+      <view class="row-main">
+        <view class="row-title">{{item.title}}</view>
+        <view class="muted">{{item.names}}</view>
+      </view>
+      <text wx:if="{{item.checked}}" class="pill">已选</text>
+    </button>
+    <view wx:if="{{!menus.length}}" class="empty">
+      <view class="row-title">{{menuCount ? '没有匹配的菜单' : '还没有常做菜单'}}</view>
+      <view class="muted">{{menuCount ? '换个名称试试。' : '可以先从菜谱里选菜。'}}</view>
+    </view>
+  </block>
+
+  <button class="secondary" hover-stay-time="80" bindtap="addRecipe" disabled="{{saving || committed}}">用链接添加菜谱</button>
+  <view class="selection-summary">
+    <view class="section-title">已选 {{recipeIds.length}} 道菜</view>
+    <view class="muted">{{selectedNames || '勾选想做的菜，随时可以调整。'}}</view>
+  </view>
+
+  <view class="field">
+    <label class="label" for="meal-title">{{mode === 'menu' ? '菜单名称' : '餐名 · 可不填'}}</label>
+    <input id="meal-title" class="input" data-field="title" value="{{title}}" maxlength="60" placeholder="{{mode === 'menu' ? '例如：家常晚餐' : (date ? '这餐' : '今晚这餐')}}" aria-label="{{mode === 'menu' ? '菜单名称' : '餐名，可不填'}}" confirm-type="done" cursor-spacing="24" adjust-position="{{true}}" disabled="{{saving || committed}}" bindinput="onInput" bindfocus="onFocus" bindblur="onBlur" bindkeyboardheightchange="onKeyboardHeightChange" />
+  </view>
+  <view wx:if="{{mode === 'meal'}}" class="field">
+    <view class="label">日期 · 可不填</view>
+    <picker mode="date" value="{{date}}" bindchange="onDateChange" disabled="{{saving || committed}}">
+      <view class="input date-picker" role="button" aria-label="选择用餐日期，{{date || '未设置'}}">{{date || '暂不定日期'}}</view>
+    </picker>
+    <button wx:if="{{date}}" class="text-button" bindtap="clearDate" disabled="{{saving || committed}}">清除日期</button>
+  </view>
+
+  <view class="bottom-action editor-action {{keyboardOpen || inputFocused ? 'keyboard-action' : ''}}">
+    <view class="action-caption">已选 {{recipeIds.length}} 道菜</view>
+    <button class="primary" hover-stay-time="80" bindtap="save" loading="{{saving}}" disabled="{{saving || !recipeIds.length}}">{{mode === 'menu' ? '保存菜单' : (id ? '保存并返回' : (committed ? '继续准备' : '开始准备'))}}</button>
+  </view>
+</view>

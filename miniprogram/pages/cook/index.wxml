@@ -1,0 +1,16 @@
+<view class="cook-shell">
+ <view class="cook-header"><view class="eyebrow">{{meal.title || '下厨'}}</view><view class="section-head"><view class="title">慢慢做，趁热吃。</view><button class="text-button" bindtap="adjust" wx:if="{{meal}}">用料 ›</button></view>
+ <scroll-view scroll-x enhanced class="dish-scroll"><view class="dish-rail"><button wx:for="{{recipes}}" wx:key="id" class="dish-chip {{recipe.id === item.id ? 'selected' : ''}}" hover-class="chip-pressed" hover-stay-time="80" data-id="{{item.id}}" bindtap="choose" aria-label="{{item.name}}，{{recipe.id === item.id ? '当前菜品' : '切换菜品'}}">{{item.name}}</button></view></scroll-view></view>
+ <view wx:if="{{error}}" class="error" role="alert">{{error}}</view>
+ <scroll-view wx:for="{{readerViews}}" wx:key="id" data-recipe="{{item.id}}" class="reading" scroll-y enhanced scroll-top="{{item.top}}" bindscroll="onScroll" scroll-with-animation="{{false}}" enable-back-to-top>
+ <view wx:if="{{recipe}}" class="article"><view class="recipe-name">{{recipe.name}}</view><view class="muted">完整做法 · 随时切换，回来接着看</view>
+ <button class="materials-toggle" hover-class="materials-pressed" hover-stay-time="80" bindtap="toggleMaterials" aria-expanded="{{materialsOpen}}">本餐用料 <text>{{materialsOpen ? '收起' : '展开'}}</text></button><view wx:if="{{materialsOpen}}" class="card materials-panel"><view wx:for="{{materials}}" wx:key="id" class="row"><text class="row-main">{{item.name}}<text wx:if="{{item.choiceLabel}}" class="muted small"> · {{item.choiceLabel}}</text></text><text>{{item.quantity || '用量未记录'}}</text></view><view wx:if="{{!materials.length}}" class="muted">材料未记录，请按原菜谱准备。</view></view>
+ <view wx:if="{{meal.data.notes}}" class="note"><text class="label">本餐备注</text><text class="long-text">{{meal.data.notes}}</text></view>
+ <view wx:for="{{recipe.steps}}" wx:key="number" class="step"><view class="step-heading"><text class="step-no">{{index + 1}}</text><text class="step-title">{{item.title}}</text></view><text class="step-text" user-select="{{true}}">{{item.text}}</text><image wx:if="{{item.image}}" class="step-image" src="{{item.image}}" mode="aspectFit" aria-label="{{item.title}}，示意图"/><view wx:if="{{item.image}}" class="image-caption">动作示意 · 以原文做法为准</view></view>
+ <view wx:if="{{!recipe.steps.length}}" class="empty card"><view class="section-title">做法还没记录</view><view class="muted">{{recipe.sourceUrl ? '已收藏原链接，可以复制到浏览器查看。' : '补充自己的原文做法，就能在这里接着看。'}}</view><button class="secondary" hover-stay-time="80" wx:if="{{recipe.sourceUrl}}" bindtap="copySource">复制原菜谱链接</button><button class="text-button" bindtap="edit">补充做法</button></view>
+ <view wx:else class="end"><view>做法到这里。</view><view>等整餐做好，再点下面的「这餐做好了」。</view></view>
+ <button wx:if="{{recipe.sourceUrl && recipe.steps.length}}" class="text-button" bindtap="copySource">复制原菜谱链接 ↗</button>
+ </view></scroll-view>
+ <view wx:if="{{meal && meal.status === 'planned'}}" class="bottom-action"><button class="primary" hover-stay-time="80" loading="{{finishing}}" disabled="{{finishing}}" bindtap="finish">这餐做好了</button></view>
+ <app-tabs active="home"/>
+</view>

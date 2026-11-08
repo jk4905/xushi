@@ -1,0 +1,37 @@
+<view class="page with-tabs">
+  <view wx:if="{{error}}" class="error" role="alert">{{error}}</view>
+  <block wx:if="{{recipe}}">
+    <view class="eyebrow">自己的菜谱 · {{recipe.kind}}</view>
+    <view class="title">{{recipe.name}}</view>
+    <button class="secondary" hover-stay-time="80" bindtap="editRecipe">编辑菜谱</button>
+    <view wx:if="{{recipe.sourceUrl}}" class="card source-card">
+      <view class="row-title">原做法链接</view>
+      <text class="source-url long-text" user-select="{{true}}">{{recipe.sourceUrl}}</text>
+      <view class="muted">微信小程序不内嵌外站。复制链接后，请在浏览器或对应应用打开。</view>
+      <button class="text-button copy-link" bindtap="copySource">复制原做法链接</button>
+    </view>
+    <view class="section-title">材料</view>
+    <view wx:if="{{items.length}}" class="card">
+      <view wx:for="{{items}}" wx:key="id" class="row ingredient-row">
+        <view class="row-main">
+          <view class="row-title">{{item.name}}</view><view>{{item.quantity || '用量未记录'}}</view>
+          <view wx:if="{{item.note}}" class="muted long-text">{{item.note}}</view>
+          <view wx:if="{{item.source}}" class="muted small long-text">来源：{{item.source}}</view>
+        </view>
+        <text class="pill">{{item.choiceLabel}}</text>
+      </view>
+    </view>
+    <view wx:else class="card empty"><view class="row-title">材料未记录</view><view class="muted">可编辑菜谱补充材料与用量。</view></view>
+    <view class="section-title">完整做法</view>
+    <view wx:if="{{hasImages}}" class="muted illustration-note">配图为动作示意，按原文步骤操作。</view>
+    <block wx:if="{{steps.length}}">
+      <view wx:for="{{steps}}" wx:key="number" class="card recipe-step">
+        <view class="step-heading"><text class="step-number">{{item.number}}</text><view class="row-title">{{item.title}}</view></view>
+        <view class="step-text long-text">{{item.text}}</view>
+        <image wx:if="{{item.image}}" class="step-image" src="{{item.image}}" mode="widthFix" lazy-load="{{true}}" aria-label="{{item.title}}步骤示意图" />
+      </view>
+    </block>
+    <view wx:else class="card empty"><view class="row-title">做法未记录</view><view class="muted">这道菜还没有记录做法。</view><button class="text-button" bindtap="editRecipe">补充做法</button></view>
+  </block>
+</view>
+<app-tabs active="library" />

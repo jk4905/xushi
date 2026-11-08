@@ -1,0 +1,4 @@
+{
+  "navigationBarTitleText": "每一餐",
+  "usingComponents": {"app-tabs": "../../components/app-tabs/index"}
+}

@@ -1,0 +1,15 @@
+{
+  "name": "xushi",
+  "version": "0.1.0",
+  "private": true,
+  "description": "煦食：H5 与微信小程序家庭做饭工具",
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "sync": "node miniprogram/scripts/sync-h5.cjs",
+    "check:sync": "node miniprogram/scripts/sync-h5.cjs --check",
+    "check": "npm run check:sync && npm --prefix miniprogram run check",
+    "test:h5": "node h5/weekend-menu-prototype-check.cjs && node h5/weekend-menu-app-check.cjs && node h5/weekend-menu-motion-check.cjs && node h5/weekend-household-model-check.cjs",
+    "test:miniprogram": "npm --prefix miniprogram test",
+    "test": "npm run test:h5 && npm run test:miniprogram && npm run check"
+  }
+}

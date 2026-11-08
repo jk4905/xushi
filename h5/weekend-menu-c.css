@@ -1,0 +1,247 @@
+/* Load after the prototype styles; screen scope preserves the existing print layout. */
+@media screen {
+  :root {
+    color-scheme: light;
+    --ground: #EAF0D9;
+    --paper: #F3F6E8;
+    --surface: var(--paper);
+    --ink: #173D2B;
+    --accent: var(--ink);
+    --accent-soft: #E2ED9C;
+    --on-accent: var(--paper);
+    --muted: #52664B;
+    --line: #C5CFB2;
+    --control: var(--muted);
+    --segment: #DCE5C8;
+    --pressed: rgb(23 61 43 / .09);
+    --warm: var(--accent-soft);
+    --warm-ink: var(--ink);
+    --danger: #A12B23;
+    --danger-soft: #FCECEA;
+    --scrim: rgb(23 61 43 / .4);
+    --toast: var(--ink);
+    --on-toast: var(--paper);
+    --tab-height: 64px;
+    --c-left: max(24px, var(--safe-left));
+    --c-right: max(24px, var(--safe-right));
+  }
+
+  body { background: var(--ground); line-height: 1.5; }
+  /* The parent may publish visualViewport.height here when the keyboard overlays the layout viewport. */
+  .app { height: 100vh; height: var(--visual-viewport-height, 100dvh); min-height: 0; }
+  #view { padding: 0 var(--c-right) 24px var(--c-left); scroll-padding: 16px 0 24px; }
+  #view > .page { min-width: 0; padding-top: 20px; }
+  #view[data-route="cook"] > .page { padding-top: 0; animation: none; }
+  #view :is(h2, h3, strong, p, button, .row-copy, .recipe-card-copy) { overflow-wrap: anywhere; }
+  button, summary, .sheet-handle { min-height: 44px; }
+  button { white-space: normal; }
+  :focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+
+  #navigation-bar { grid-template-rows: minmax(64px, auto); border-bottom: 0; background: var(--ink); color: var(--paper); }
+  #navigation-bar h1#screen-title, #navigation-bar button { color: var(--paper); }
+  #navigation-bar .nav-back span { white-space: normal; overflow: visible; text-overflow: clip; }
+  #navigation-bar :focus-visible { outline-color: var(--accent-soft); outline-offset: -3px; }
+  #navigation-bar button:active:not(:disabled) { background: rgb(243 246 232 / .12); }
+
+  .c-header { margin: -20px calc(-1 * var(--c-right)) 0 calc(-1 * var(--c-left)); padding: 12px var(--c-right) 32px var(--c-left); background: var(--ink); color: var(--paper); }
+  .c-header h2 { font-size: 2.125rem; line-height: 1.2; font-weight: 700; letter-spacing: 0; }
+  .c-header p { margin-top: 8px; color: var(--paper); font-size: .9375rem; line-height: 1.6; }
+  #view .c-current { display: grid; grid-template-columns: minmax(0, 1fr) minmax(80px, 9rem); gap: 8px 12px; margin-top: 24px; padding: 0; border-radius: 0; background: transparent; }
+  .c-current .section-head { grid-column: 1 / -1; margin: 0; color: var(--muted); }
+  .c-current .section-head h2 { color: var(--muted); font-size: .9375rem; font-weight: 400; }
+  .c-current .c-meal-title { grid-column: 1; margin: 0; font-size: 1.875rem; line-height: 1.35; font-weight: 700; }
+  .c-current .c-meal-title button { width: 100%; padding: 0; text-align: left; font: inherit; }
+  .c-meal-art { grid-column: 2; grid-row: 2 / span 2; align-self: center; min-width: 0; margin: 0; }
+  .c-meal-art :is(svg, img) { display: block; width: 100%; height: auto; object-fit: contain; }
+  .c-current .current-meal-dishes { grid-column: 1; display: block; margin: 24px 0 0; padding: 0; color: var(--muted); list-style: none; }
+  .c-current .current-meal-dishes li { margin: 6px 0 0; font-size: 1.0625rem; line-height: 1.5; overflow-wrap: anywhere; }
+  .c-current .current-meal-dishes li:first-child { margin-top: 0; color: var(--ink); font-size: 1.125rem; font-weight: 600; }
+  .c-resume { grid-column: 1 / -1; margin-top: 40px; padding: 20px; border-radius: 24px; background: var(--accent-soft); color: var(--ink); }
+  .c-resume :is(p, small) { color: inherit; font-size: .9375rem; line-height: 1.6; }
+  .c-resume :is(h2, h3, strong) { display: block; margin: 12px 0; font-size: 1.25rem; line-height: 1.5; font-weight: 600; }
+  .c-first { padding: 32px 0; background: transparent; }
+  .c-first svg { display: block; width: 100%; max-width: 340px; margin: 0 auto 24px; }
+  .c-first h3 { font-size: 1.5rem; }
+  .source-link { display: inline-flex; align-items: center; min-height: 44px; }
+
+  /* Keep row geometry unchanged while purchases are toggled in place. */
+  .purchase-state { min-height: 1.5em; white-space: nowrap; }
+  .purchase-state[aria-hidden="true"] { visibility: hidden; }
+  #readiness > span { display: block; }
+  .flow-page .shopping-row[data-purchase-hint] { animation: c-purchase-hint 450ms ease-out; }
+  @keyframes c-purchase-hint {
+    0%, 100% { background-color: transparent; box-shadow: inset 3px 0 transparent; }
+    20%, 55% { background-color: var(--pressed); box-shadow: inset 3px 0 var(--muted); }
+  }
+
+  /* This group is a sibling of #view, so wrapping dish names never cover reader content. */
+  #reader-switches.reader-tabs { position: relative; z-index: 2; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 6rem), 1fr)); flex: 0 0 auto; gap: 8px; min-width: 0; max-height: 40%; margin: 0; padding: 6px max(16px, var(--safe-right)) 16px max(16px, var(--safe-left)); overflow: auto; overscroll-behavior: contain; background: var(--ink); color: var(--paper); }
+  #reader-switches button { min-width: 44px; min-height: 46px; padding: 10px 8px; border-radius: 14px; background: rgb(243 246 232 / .07); color: var(--paper); font-size: 1rem; line-height: 1.5; font-weight: 500; white-space: normal; overflow: visible; overflow-wrap: anywhere; text-overflow: clip; }
+  #reader-switches button[aria-pressed="true"] { background: var(--accent-soft); color: var(--ink); font-weight: 700; }
+  #reader-switches button:active:not(:disabled) { opacity: .8; }
+  #reader-switches button:focus-visible { outline-color: var(--paper); outline-offset: -3px; }
+  #reader-switches button[aria-pressed="true"]:focus-visible { outline-color: var(--ink); }
+  #view[data-route="cook"] .recipe-reader { min-width: 0; padding: 0; }
+  #view[data-route="cook"] .cook-ingredients { margin: 0 0 8px; padding: 0; border-top: 0; border-bottom: 1px solid var(--line); }
+  #view[data-route="cook"] .cook-ingredients > summary { min-height: 48px; color: var(--muted); font-size: .9375rem; }
+  #view[data-route="cook"] .ingredient-line { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 16px; padding: 12px 0; font-size: 1rem; overflow-wrap: anywhere; }
+  #view[data-route="cook"] .reader-step { min-width: 0; padding: 24px 0; scroll-margin-block: 16px; }
+  #view[data-route="cook"] .reader-step + .reader-step { border-top: 1px solid var(--line); }
+  #view[data-route="cook"] .step-heading { display: flex; align-items: baseline; gap: 14px; }
+  #view[data-route="cook"] .step-number { flex: 0 0 auto; min-width: 1.5rem; color: var(--muted); font-size: 1.1875rem; font-weight: 500; font-variant-numeric: tabular-nums; }
+  #view[data-route="cook"] .step-heading h2 { min-width: 0; margin: 0; color: var(--ink); font-size: 1.375rem; line-height: 1.4; font-weight: 600; }
+  #view[data-route="cook"] .reader-step .hint { margin-top: 8px; font-size: .875rem; }
+  #view[data-route="cook"] .cook-description { margin-top: 16px; font-size: 1.1875rem; line-height: 1.65; white-space: pre-wrap; }
+  #view[data-route="cook"] .step-visual { margin: 20px 0 0; overflow: hidden; border-radius: 20px; background: var(--paper); color: var(--muted); }
+  #view[data-route="cook"] .step-visual :is(svg, img) { display: block; width: 100%; height: auto; object-fit: contain; }
+  #view[data-route="cook"] .step-visual figcaption { position: static; padding: 8px 16px; font-size: .8125rem; text-align: right; }
+  #view[data-route="cook"] .reader-empty { margin-top: 24px; padding: 24px; border-radius: 24px; background: var(--paper); }
+  #view[data-route="cook"] .reader-empty p { margin-top: 8px; color: var(--muted); }
+  #view[data-route="cook"] .reader-end { margin-top: 8px; padding: 20px 0; border-top: 1px solid var(--line); color: var(--muted); font-size: .9375rem; line-height: 1.6; }
+
+  .group, .flow-page .group, .kitchen-detail .group, .empty { border-radius: 24px; }
+  .note, .field, .action-list { border-radius: 16px; }
+  .segmented { gap: 4px; margin-top: 16px; border-radius: 14px; }
+  .segmented button { min-width: 44px; border-radius: 11px; }
+  .segmented button[aria-pressed="true"] { background: var(--paper); }
+  .search-field { margin: 18px 0 16px; }
+  #view .search-field input, #builder-search { min-height: 48px; border-radius: 16px; background: var(--paper); }
+  .recipe-library { overflow: visible; background: transparent; }
+  .recipe-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 0; overflow: hidden; border-radius: 24px; background: var(--paper); }
+  .recipe-card { position: relative; display: grid; grid-template-columns: 52px minmax(0, 1fr) 12px; align-items: center; gap: 16px; min-height: 96px; padding: 16px 16px 16px 6px; border-radius: 0; }
+  .recipe-card .recipe-card-art, .builder-page .recipe-card-art { width: 52px; height: 52px; aspect-ratio: auto; border-radius: 0; background: transparent; }
+  .recipe-card-art :is(svg, img) { display: block; width: 100%; height: 100%; object-fit: contain; }
+  .recipe-card-copy { min-width: 0; padding: 0; }
+  .recipe-card strong { font-size: 1.0625rem; line-height: 1.5; }
+  .recipe-card small { margin-top: 4px; font-size: .875rem; }
+  .recipe-card + .recipe-card::before { position: absolute; inset: 0 24px auto 74px; border-top: 1px solid var(--line); content: ""; }
+  .recipe-card::after { width: 8px; height: 8px; border-top: 1px solid var(--muted); border-right: 1px solid var(--muted); transform: rotate(45deg); content: ""; }
+  #view .recipe-card:focus-visible { outline-offset: -3px; }
+  .row-copy strong { font-weight: 600; }
+  .row-copy small { font-size: .875rem; line-height: 1.5; }
+  .thumb, .recipe-visual { background: transparent; }
+
+  .builder-page .c-header { margin-bottom: 20px; }
+  .builder-page .builder-grid { grid-template-columns: minmax(0, 1fr); gap: 0; overflow: hidden; border-radius: 24px; background: var(--paper); }
+  .builder-page .builder-recipe { display: grid; grid-template-columns: 52px minmax(0, 1fr) 24px; align-items: center; gap: 12px; min-height: 88px; padding: 14px 16px; border: 0; border-radius: 0; }
+  .builder-page .builder-recipe + .builder-recipe { border-top: 1px solid var(--line); }
+  .builder-page .builder-recipe input { position: static; grid-column: 3; grid-row: 1; width: 24px; height: 24px; margin: 0; box-shadow: none; }
+  .builder-page .builder-recipe .recipe-card-art { grid-column: 1; grid-row: 1; border-radius: 0; }
+  .builder-page .builder-recipe .recipe-card-copy { grid-column: 2; grid-row: 1; padding: 0; }
+  .builder-page .builder-recipe:has([data-builder-menu]) .recipe-card-copy { grid-column: 1 / 3; }
+  .builder-page .builder-recipe strong { display: block; font-size: 1.0625rem; line-height: 1.5; overflow-wrap: anywhere; }
+  .builder-page .builder-recipe:has(input:checked) { border-color: var(--line); background: var(--accent-soft); }
+  .builder-page .builder-recipe:has(input:focus-visible) { outline-offset: -3px; }
+
+  .primary, .secondary { border-radius: 18px; }
+  #screen-action { position: relative; flex: 0 0 auto; padding: 8px var(--c-right) calc(12px + var(--safe-bottom)) var(--c-left); border: 0; background: var(--ground); }
+  .app:has(> .tabbar:not([hidden])) > #screen-action { padding-bottom: 12px; }
+  #screen-action .button-pair { grid-template-columns: minmax(0, 1fr); margin: 0; }
+  #screen-action .primary, #screen-action .secondary { width: 100%; min-height: 54px; border-radius: 18px; }
+  #screen-action[data-cooking="true"] button { min-height: 44px; padding: 8px 16px; border: 1px solid var(--muted); border-radius: 14px; background: var(--paper); color: var(--ink); font-size: 1rem; font-weight: 600; }
+  #screen-action[data-cooking="true"] button:active:not(:disabled) { background: var(--accent-soft); opacity: 1; }
+  #screen-action p { font-size: .875rem; line-height: 1.5; }
+  .app:has(.flow-page) .primary:active:not(:disabled), .app:has(.flow-page) .secondary:active:not(:disabled) { transform: none; }
+  #tabbar.tabbar { grid-template-columns: repeat(2, minmax(0, 1fr)); padding-top: 4px; padding-bottom: calc(8px + var(--safe-bottom)); border: 0; background: var(--ground); }
+  #tabbar button { position: relative; min-width: 44px; min-height: 64px; gap: 2px; padding: 8px 4px; color: var(--muted); }
+  #tabbar button .icon { z-index: 1; width: 46px; height: 30px; padding: 3px 11px; border-radius: 999px; background: transparent; }
+  #tabbar button[aria-current="page"] { color: var(--ink); }
+  #tabbar button[aria-current="page"] .icon { background: var(--accent-soft); stroke-width: 1.8; }
+
+  dialog { border-radius: 24px 24px 0 0; }
+  dialog.link-editor { min-height: min(540px, 80dvh); }
+  .sheet-header { border-bottom-color: var(--line); }
+  .sheet-body { padding-inline: var(--c-left) var(--c-right); }
+  .sheet-footer { padding-inline: var(--c-left) var(--c-right); }
+  .sheet-footer .button-pair { margin: 0; }
+  .sheet-footer :is(.primary, .secondary) { min-height: 48px; }
+  input:not([type="checkbox"]):not([type="radio"]), textarea, select { border-radius: 12px; font-size: 1rem; }
+  .field > input, .field > textarea { border-radius: 0; }
+  [aria-invalid="true"] { outline-color: var(--danger); }
+
+  @media (max-width: 360px) {
+    :root { --c-left: max(16px, var(--safe-left)); --c-right: max(16px, var(--safe-right)); }
+    #view .c-current { grid-template-columns: minmax(0, 1fr) 6rem; }
+    .builder-page .builder-recipe { grid-template-columns: 40px minmax(0, 1fr) 24px; padding-inline: 12px; }
+    .builder-page .recipe-card-art { width: 40px; height: 40px; }
+  }
+
+  @media (max-height: 500px) {
+    #navigation-bar { grid-template-rows: minmax(44px, auto); }
+    #reader-switches.reader-tabs { max-height: 30%; padding-block: 4px; }
+    #tabbar button { min-height: 44px; }
+    #tabbar.tabbar { min-height: calc(44px + var(--safe-bottom)); padding-block: 0 var(--safe-bottom); }
+    #screen-action { padding-top: 4px; }
+  }
+}
+
+
+/* Motion communicates depth and selection; persistence never waits for it. */
+@media screen {
+  :root {
+    --motion-press: 80ms;
+    --motion-select: 220ms;
+    --motion-page: 280ms;
+    --motion-sheet: 320ms;
+    --ease-settle: cubic-bezier(.22, 1, .36, 1);
+    --ease-control: cubic-bezier(.2, .7, .2, 1);
+  }
+  #screen-action button, .sheet-footer button, .icon-button, .builder-add {
+    transition: transform 160ms var(--ease-settle), background-color 120ms ease, opacity 120ms ease;
+    transform-origin: center;
+  }
+  #screen-action button:active:not(:disabled), .sheet-footer button:active:not(:disabled),
+  .icon-button:active:not(:disabled), .builder-add:active:not(:disabled) {
+    transform: scale(.975); transition-duration: var(--motion-press);
+  }
+  .row, .recipe-card, .builder-recipe, .purchase-check {
+    transition: background-color 120ms ease;
+  }
+  .purchase-check:active { background: var(--pressed); }
+  .purchase-check input::after { transition: opacity 100ms ease; }
+
+  #view > .page.page-forward { animation: c-page-forward var(--motion-page) var(--ease-settle); }
+  #view > .page.page-back { animation: c-page-back 220ms var(--ease-settle); }
+  #view > .page.page-tab, #view[data-route="cook"] > .page.page-reader { animation: c-content-in 140ms ease-out; }
+  #view > .page.flow-intro { animation: c-content-in 220ms ease-out; }
+  .page-filter :is(#plan-results, #library-results, #recipe-panel, .builder-grid) { animation: c-content-in 160ms ease-out; }
+  @keyframes c-page-forward { from { opacity: .75; transform: translateX(24px); } to { opacity: 1; transform: none; } }
+  @keyframes c-page-back { from { opacity: .85; transform: translateX(-16px); } to { opacity: 1; transform: none; } }
+  @keyframes c-content-in { from { opacity: .86; } to { opacity: 1; } }
+
+  /* One moving plate; labels and their hit areas stay in place. */
+  #tabbar[data-selection], #reader-switches[data-selection], .segmented[data-selection] { position: relative; isolation: isolate; }
+  #tabbar[data-selection]::before, #reader-switches[data-selection]::before, .segmented[data-selection]::before {
+    position: absolute; top: 0; left: 0; z-index: -1; pointer-events: none; content: "";
+    width: var(--selection-width); height: var(--selection-height);
+    transform: translate(var(--selection-x), var(--selection-y));
+    border-radius: 14px; background: var(--accent-soft);
+    transition: transform var(--motion-select) var(--ease-settle), width var(--motion-select) var(--ease-settle), height var(--motion-select) var(--ease-settle);
+  }
+  #tabbar[data-selection]::before { border-radius: 999px; }
+  .segmented[data-selection]::before { border-radius: 11px; background: var(--paper); }
+  #tabbar[data-selection] button[aria-current="page"] .icon,
+  #reader-switches[data-selection] button[aria-pressed="true"],
+  .segmented[data-selection] button[aria-pressed="true"] { background: transparent; }
+  #reader-switches button, .segmented button { transition: color 140ms ease, background-color 140ms ease; }
+  [data-selection-instant]::before { transition: none !important; }
+
+  dialog[open] { animation: c-sheet-enter var(--motion-sheet) var(--ease-settle); }
+  @keyframes c-sheet-enter { from { opacity: .65; transform: translateY(48px); } to { opacity: 1; transform: none; } }
+  /* Browsers without discrete top-layer transitions close immediately. */
+  @supports (transition-behavior: allow-discrete) and (overlay: auto) {
+    dialog { opacity: 0; transform: translateY(100%); transition: opacity 180ms ease-in, transform 200ms cubic-bezier(.4,0,.8,.4), display 200ms allow-discrete, overlay 200ms allow-discrete; }
+    dialog[open] { animation: none; opacity: 1; transform: none; transition-duration: var(--motion-sheet); transition-timing-function: var(--ease-settle); }
+    dialog::backdrop { background: transparent; transition: background-color 180ms ease, display 200ms allow-discrete, overlay 200ms allow-discrete; }
+    dialog[open]::backdrop { background: var(--scrim); }
+    @starting-style {
+      dialog[open] { opacity: .65; transform: translateY(100%); }
+      dialog[open]::backdrop { background: transparent; }
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+  #screen-action button:active, .sheet-footer button:active, .icon-button:active, .builder-add:active { transform: none !important; }
+}

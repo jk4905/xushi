@@ -1,0 +1,4 @@
+.title{font-size:34px;line-height:1.32;margin-bottom:32px}.current{padding:24px}.meal-title{font-size:25px;line-height:1.35;font-weight:600;margin:22px 0 8px}.names{font-size:14px;color:#52664b;line-height:1.8}.meal-art{width:100%;height:172px;margin:8px 0 16px}.primary{margin-top:20px;justify-content:space-between}.arrow{font-size:24px}.empty-art{width:100%;height:150px}.empty .primary{justify-content:center}
+
+.current,.empty{animation:meal-arrive 220ms cubic-bezier(.2,.8,.2,1)}
+@keyframes meal-arrive{from{opacity:.65;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}

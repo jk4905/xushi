@@ -1,0 +1,35 @@
+<view class="page editor-page">
+  <view class="eyebrow">自己的菜谱</view>
+  <view class="title">{{recipeId ? '编辑菜谱' : '留下一道想做的菜'}}</view>
+  <view class="subtitle">存下链接和菜名，材料与做法可稍后手动补充。</view>
+  <view wx:if="{{error}}" class="error" role="alert">{{error}}</view>
+  <view wx:if="{{draftStatus}}" class="muted draft-status">{{draftStatus}}</view>
+  <block wx:if="{{ready}}">
+    <view class="field">
+      <label class="label" for="recipe-url">原做法链接</label>
+      <input id="recipe-url" class="input" value="{{sourceUrl}}" data-field="sourceUrl" bindinput="onInput" bindfocus="onFocus" bindkeyboardheightchange="onKeyboardHeightChange" cursor-spacing="32" maxlength="2048" placeholder="https://…" aria-label="原做法链接" disabled="{{saving || saved}}" />
+      <view class="muted small field-hint">这里只保存链接，不会自动读取材料或做法。无链接时，请展开并填写材料。</view>
+    </view>
+    <view class="field">
+      <label class="label" for="recipe-name">菜名</label>
+      <input id="recipe-name" class="input" value="{{name}}" data-field="name" bindinput="onInput" bindfocus="onFocus" bindkeyboardheightchange="onKeyboardHeightChange" cursor-spacing="32" maxlength="60" placeholder="这道菜叫什么" aria-label="菜名" disabled="{{saving || saved}}" />
+    </view>
+    <button class="secondary details-toggle" hover-stay-time="80" bindtap="toggleDetails" disabled="{{saving || saved}}" aria-label="{{expanded ? '收起材料与做法' : '展开材料与做法'}}">{{expanded ? '收起材料与做法' : '补充材料与做法（选填）'}}</button>
+    <view hidden="{{!expanded}}">
+      <view class="field">
+        <label class="label" for="recipe-ingredients">材料 · 每行一种</label>
+        <view class="muted small field-hint">名称｜用量；不知道用量可只写名称。</view>
+        <textarea id="recipe-ingredients" class="textarea ingredients-input" value="{{ingredientsText}}" data-field="ingredientsText" bindinput="onInput" bindfocus="onFocus" bindkeyboardheightchange="onKeyboardHeightChange" cursor-spacing="32" maxlength="20000" placeholder="土豆｜2个&#10;盐｜少许" aria-label="材料，每行名称竖线用量" disabled="{{saving || saved}}" />
+      </view>
+      <view class="field">
+        <label class="label" for="recipe-steps">做法 · 每行一步</label>
+        <textarea id="recipe-steps" class="textarea steps-input" value="{{stepsText}}" data-field="stepsText" bindinput="onInput" bindfocus="onFocus" bindkeyboardheightchange="onKeyboardHeightChange" cursor-spacing="32" maxlength="20000" placeholder="写下自己的做法，也可以留空稍后补充" aria-label="做法，每行一步" disabled="{{saving || saved}}" />
+      </view>
+    </view>
+    <view wx:if="{{recipeId}}" class="muted small edit-note">更新菜谱不会修改已安排餐次的材料；查看做法时会使用更新后的步骤。</view>
+  </block>
+  <button wx:if="{{draftStatus || !ready}}" class="text-button" bindtap="discardDraft" disabled="{{saving || saved}}">放弃草稿</button>
+  <view class="bottom-action editor-action {{keyboardOpen ? 'keyboard-action' : ''}}">
+    <button class="primary" hover-stay-time="80" bindtap="save" disabled="{{!ready || saving || saved}}" loading="{{saving}}">{{saved ? '已保存' : '保存菜谱'}}</button>
+  </view>
+</view>
