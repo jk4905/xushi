@@ -11,11 +11,18 @@ h5/                          浏览器版页面、样式、业务模型及回归
 miniprogram/                 微信原生 WXML / WXSS / JavaScript
   core/                     生成的共享模型 + 微信存储等平台适配
   scripts/sync-h5.cjs        生成 / 只读检查共享模型
-docs/                       双端维护约定与交付验证
+docs/                       PRD、交互、设计图、规划与交付验证
 .github/workflows/check.yml 双端回归和模型一致性检查
 ```
 
-本仓库是两端代码的唯一维护入口。历史设计稿、调研、iOS 实验与开发者工具私人配置不在交付范围内。
+本仓库是两端代码的唯一维护入口。已收录选定 C 方案的静态设计稿，并标明与当前实现的差异；早期多方案探索、调研原始材料、iOS 实验与开发者工具私人配置不在交付范围内。
+
+## 产品与设计文档
+
+- [当前 MVP PRD](docs/prd.md)：目标、功能与验收契约。
+- [双端交互规格](docs/interaction.md)：状态转换、恢复与平台差异。
+- [C 方案设计稿](docs/design/c-2026-10-25/README.md)：35屏及可放大的原图；先读 [设计说明](docs/design/README.md)。
+- [后续规划](docs/roadmap.md)：待验证方向及已替代方案；[文档总览](docs/README.md)。
 
 ## 运行 H5
 

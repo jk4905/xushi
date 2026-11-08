@@ -1,0 +1,716 @@
+{
+  "designDate": "2026-10-25",
+  "archiveDate": "2026-11-08",
+  "kind": "selected-static-design-not-runtime",
+  "screens": [
+    {
+      "id": "01-first",
+      "title": "首页 · 第一次打开",
+      "caveat": "旧图含阶段条和示例进度卡；当前首页已精简，勿直接恢复这些装饰。"
+    },
+    {
+      "id": "02-home-shopping",
+      "title": "做饭 · 买菜中",
+      "caveat": "旧图含阶段条和示例进度卡；当前首页已精简，勿直接恢复这些装饰。"
+    },
+    {
+      "id": "03-home-resume",
+      "title": "做饭 · 中断后继续",
+      "caveat": "旧图含阶段条和示例进度卡；当前首页已精简，勿直接恢复这些装饰。"
+    },
+    {
+      "id": "04-select",
+      "title": "选菜 · 菜谱",
+      "caveat": "静态稿，不证明当前实现或真机验收；参见图稿差异说明。"
+    },
+    {
+      "id": "05-select-menu",
+      "title": "选菜 · 常做菜单",
+      "caveat": "静态稿，不证明当前实现或真机验收；参见图稿差异说明。"
+    },
+    {
+      "id": "06-link",
+      "title": "链接录入",
+      "caveat": "图中为底部浮层；两端目前录入容器不同，以交互规格为准。"
+    },
+    {
+      "id": "07-link-error",
+      "title": "链接录入 · 保存失败",
+      "caveat": "图中为底部浮层；两端目前录入容器不同，以交互规格为准。"
+    },
+    {
+      "id": "08-shopping",
+      "title": "买菜 · 勾选中",
+      "caveat": "静态稿，不证明当前实现或真机验收；参见图稿差异说明。"
+    },
+    {
+      "id": "09-shopping-ready",
+      "title": "买菜 · 已备齐",
+      "caveat": "静态稿，不证明当前实现或真机验收；参见图稿差异说明。"
+    },
+    {
+      "id": "10-cooking",
+      "title": "下厨 · 完整做法开头",
+      "caveat": "静态稿，不证明当前实现或真机验收；参见图稿差异说明。"
+    },
+    {
+      "id": "11-step",
+      "title": "完整做法 · 阅读到第3段",
+      "caveat": "同一篇完整做法的阅读位置快照，没有下一步关卡。两端恢复机制不同。"
+    },
+    {
+      "id": "12-next",
+      "title": "完整做法 · 阅读到第4段",
+      "caveat": "同一篇完整做法的阅读位置快照，没有下一步关卡。两端恢复机制不同。"
+    },
+    {
+      "id": "13-last-step",
+      "title": "完整做法 · 阅读到第10段",
+      "caveat": "同一篇完整做法的阅读位置快照，没有下一步关卡。两端恢复机制不同。"
+    },
+    {
+      "id": "14-switch",
+      "title": "一键换菜 · 米饭",
+      "caveat": "同一篇完整做法的阅读位置快照，没有下一步关卡。两端恢复机制不同。"
+    },
+    {
+      "id": "15-missing",
+      "title": "一键换菜 · 西兰花",
+      "caveat": "静态稿，不证明当前实现或真机验收；参见图稿差异说明。"
+    },
+    {
+      "id": "16-materials",
+      "title": "完整做法 · 就地展开材料",
+      "caveat": "静态稿，不证明当前实现或真机验收；参见图稿差异说明。"
+    },
+    {
+      "id": "17-complete",
+      "title": "明确完成这餐",
+      "caveat": "确认层和成功去向按当前交互规格；图中不是两端现状截图。"
+    },
+    {
+      "id": "18-complete-error",
+      "title": "完成 · 保存失败",
+      "caveat": "确认层和成功去向按当前交互规格；图中不是两端现状截图。"
+    },
+    {
+      "id": "19-cancel",
+      "title": "取消这餐",
+      "caveat": "确认层和成功去向按当前交互规格；图中不是两端现状截图。"
+    },
+    {
+      "id": "20-plan",
+      "title": "全部餐次 · 待做",
+      "caveat": "静态稿，不证明当前实现或真机验收；参见图稿差异说明。"
+    },
+    {
+      "id": "21-history",
+      "title": "全部餐次 · 做过",
+      "caveat": "静态稿，不证明当前实现或真机验收；参见图稿差异说明。"
+    },
+    {
+      "id": "22-library",
+      "title": "菜谱 · 菜谱",
+      "caveat": "静态稿，不证明当前实现或真机验收；参见图稿差异说明。"
+    },
+    {
+      "id": "23-menus",
+      "title": "菜谱 · 常做菜单",
+      "caveat": "静态稿，不证明当前实现或真机验收；参见图稿差异说明。"
+    },
+    {
+      "id": "24-profile",
+      "title": "设置 · 数据备份",
+      "caveat": "静态稿，不证明当前实现或真机验收；参见图稿差异说明。"
+    },
+    {
+      "id": "25-recipe",
+      "title": "菜谱 · 详情",
+      "caveat": "原链接在 H5 打开，在小程序复制后查看；没有自动解析。"
+    },
+    {
+      "id": "26-edit",
+      "title": "编辑菜谱",
+      "caveat": "旧图带底部 Tab；当前小程序编辑页隐藏 Tab，突出保存。"
+    },
+    {
+      "id": "27-edit-error",
+      "title": "编辑菜谱 · 保存失败",
+      "caveat": "旧图带底部 Tab；当前小程序编辑页隐藏 Tab，突出保存。"
+    },
+    {
+      "id": "28-menu-edit",
+      "title": "编辑常做菜单",
+      "caveat": "旧图带底部 Tab；当前小程序编辑页隐藏 Tab，突出保存。"
+    },
+    {
+      "id": "29-restore",
+      "title": "全部餐次 · 已取消",
+      "caveat": "静态稿，不证明当前实现或真机验收；参见图稿差异说明。"
+    },
+    {
+      "id": "30-long-step",
+      "title": "完整做法 · 阅读到第6段",
+      "caveat": "同一篇完整做法的阅读位置快照，没有下一步关卡。两端恢复机制不同。"
+    },
+    {
+      "id": "31-adjust",
+      "title": "本餐用料",
+      "caveat": "旧图带底部 Tab；当前小程序编辑页隐藏 Tab，突出保存。"
+    },
+    {
+      "id": "32-adjust-error",
+      "title": "本餐用料 · 保存失败",
+      "caveat": "旧图带底部 Tab；当前小程序编辑页隐藏 Tab，突出保存。"
+    },
+    {
+      "id": "33-empty-library",
+      "title": "首次选菜 · 还没有菜谱",
+      "caveat": "静态稿，不证明当前实现或真机验收；参见图稿差异说明。"
+    },
+    {
+      "id": "34-empty-shopping",
+      "title": "链接菜谱 · 无材料清单",
+      "caveat": "静态稿，不证明当前实现或真机验收；参见图稿差异说明。"
+    },
+    {
+      "id": "35-source-recipe",
+      "title": "链接菜谱 · 按原链接做",
+      "caveat": "原链接在 H5 打开，在小程序复制后查看；没有自动解析。"
+    }
+  ],
+  "images": [
+    {
+      "path": "screens/01-first-1x.png",
+      "source": "design-c-2026-10-25/screens/01-first-1x.png",
+      "sha256": "c7e0c60d19f3a93ef2b85c9bafe818c9c0c8d59b390c384297c66db402a0530d",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "path": "screens/01-first.png",
+      "source": "design-c-2026-10-25/screens/01-first.png",
+      "sha256": "1e9a17d61475051e5045b6af7b89b4be8a53d7bc363630ddfbbcf5ab297c7162",
+      "width": 1170,
+      "height": 2532
+    },
+    {
+      "path": "screens/02-home-shopping-1x.png",
+      "source": "design-c-2026-10-25/screens/02-home-shopping-1x.png",
+      "sha256": "f52690ed945baa3fb5096350c4d7ba91026c2f3dfa7d458b5a179539c509e4aa",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "path": "screens/02-home-shopping.png",
+      "source": "design-c-2026-10-25/screens/02-home-shopping.png",
+      "sha256": "7e3b7fb9030b2b401f15300ad30845474004f39a8abe3774e15afddae91b129d",
+      "width": 1170,
+      "height": 2532
+    },
+    {
+      "path": "screens/03-home-resume-1x.png",
+      "source": "design-c-2026-10-25/screens/03-home-resume-1x.png",
+      "sha256": "afb93b2d0b8bf01d540c9f0a48fdbcce671afab37b615482633b78ef2c3044a0",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "path": "screens/03-home-resume.png",
+      "source": "design-c-2026-10-25/screens/03-home-resume.png",
+      "sha256": "678d148239c0e20ef85eda83e4c3216f405bec16bf13311874e14090ccc0f8f2",
+      "width": 1170,
+      "height": 2532
+    },
+    {
+      "path": "screens/04-select-1x.png",
+      "source": "design-c-2026-10-25/screens/04-select-1x.png",
+      "sha256": "b66cbbfdb31c324d2e33e5617b7092387b43dc235d4c3578426379bcf8b65bd6",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "path": "screens/04-select.png",
+      "source": "design-c-2026-10-25/screens/04-select.png",
+      "sha256": "eaab4ab332c8d455d755a8d5a8e3276487aabfc09c9a5abc9214bbcf184ae082",
+      "width": 1170,
+      "height": 2532
+    },
+    {
+      "path": "screens/05-select-menu-1x.png",
+      "source": "design-c-2026-10-25/screens/05-select-menu-1x.png",
+      "sha256": "d54c4c2f3bb3f151bbb4c926fd5d1a14fbda0c415c41c9ea03b23c2ec35fba57",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "path": "screens/05-select-menu.png",
+      "source": "design-c-2026-10-25/screens/05-select-menu.png",
+      "sha256": "c1a0174f4df6ae5bb1068eb7460146a1dd0aedaac807643de42b9b72b1568d7a",
+      "width": 1170,
+      "height": 2532
+    },
+    {
+      "path": "screens/06-link-1x.png",
+      "source": "design-c-2026-10-25/screens/06-link-1x.png",
+      "sha256": "cc1bb9786b876f5b8a9ce699dca09211c8be464b879a610834f4a80abc471ec0",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "path": "screens/06-link.png",
+      "source": "design-c-2026-10-25/screens/06-link.png",
+      "sha256": "73a5d913d64a5e44ee3127c1c55fe41805fc8e35cf92ab861cb0fa0ccf441ee9",
+      "width": 1170,
+      "height": 2532
+    },
+    {
+      "path": "screens/07-link-error-1x.png",
+      "source": "design-c-2026-10-25/screens/07-link-error-1x.png",
+      "sha256": "73fc8d24b1dbde49c47e73c4a906256df2569eefb909369f332cdf58f4fcf059",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "path": "screens/07-link-error.png",
+      "source": "design-c-2026-10-25/screens/07-link-error.png",
+      "sha256": "42932df04667ae0c382b10aa4b5ede06950972d061b7958fc429be5209564bc2",
+      "width": 1170,
+      "height": 2532
+    },
+    {
+      "path": "screens/08-shopping-1x.png",
+      "source": "design-c-2026-10-25/screens/08-shopping-1x.png",
+      "sha256": "9406d4c8941f5a13c1518db3b56670f5025bfac8128cdfaaf76fa5d3f04379d6",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "path": "screens/08-shopping.png",
+      "source": "design-c-2026-10-25/screens/08-shopping.png",
+      "sha256": "a4e0a60f60598e7d5ddcb6b9b7928a419c61d547bdaf1ea2c698b92de5ded9a7",
+      "width": 1170,
+      "height": 2532
+    },
+    {
+      "path": "screens/09-shopping-ready-1x.png",
+      "source": "design-c-2026-10-25/screens/09-shopping-ready-1x.png",
+      "sha256": "0b110e985e9998d1ec7d780997bc6864d5119a28a1f520f87ecc247d9fa861bc",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "path": "screens/09-shopping-ready.png",
+      "source": "design-c-2026-10-25/screens/09-shopping-ready.png",
+      "sha256": "da2b1ed7eba82696ef9271db58dbb56901acd058512d325ccbdb0578fc2939af",
+      "width": 1170,
+      "height": 2532
+    },
+    {
+      "path": "screens/10-cooking-1x.png",
+      "source": "design-c-2026-10-25/screens/10-cooking-1x.png",
+      "sha256": "7119317ca6a82b2d2a3b27379f755a7cc0e57d04e897cdd2485e496fb88aa290",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "path": "screens/10-cooking.png",
+      "source": "design-c-2026-10-25/screens/10-cooking.png",
+      "sha256": "98a450d779ab4fc2a67031877ad28cd48da83ffd1388180e3fc27c03fcf28365",
+      "width": 1170,
+      "height": 2532
+    },
+    {
+      "path": "screens/11-step-1x.png",
+      "source": "design-c-2026-10-25/screens/11-step-1x.png",
+      "sha256": "dee8bdeba674ac02cf9e5d86b4339a8c6d29c9ad30c222564f6f15aa1eea7a20",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "path": "screens/11-step.png",
+      "source": "design-c-2026-10-25/screens/11-step.png",
+      "sha256": "78185d03895c26cc9415fcb30dba888b1964170181368efd150e901c5bcbbcdd",
+      "width": 1170,
+      "height": 2532
+    },
+    {
+      "path": "screens/12-next-1x.png",
+      "source": "design-c-2026-10-25/screens/12-next-1x.png",
+      "sha256": "9afae5f49a52aa47e9057d918028a1aa8e267597a8254ff785ee9842be203339",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "path": "screens/12-next.png",
+      "source": "design-c-2026-10-25/screens/12-next.png",
+      "sha256": "96324a131607c0bd0608dee1c14d92f9052a3bf8f9efa4f1c31c55162a307c4c",
+      "width": 1170,
+      "height": 2532
+    },
+    {
+      "path": "screens/13-last-step-1x.png",
+      "source": "design-c-2026-10-25/screens/13-last-step-1x.png",
+      "sha256": "b769b5e4e3092816cbe683b718dd53d8a2db8176c12d01e61c9f6dc9f6cafa11",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "path": "screens/13-last-step.png",
+      "source": "design-c-2026-10-25/screens/13-last-step.png",
+      "sha256": "4d7ba1257e4cd8851292e26a804ca8a1b765d9101052d2fc5a5fc93e5b94dc6b",
+      "width": 1170,
+      "height": 2532
+    },
+    {
+      "path": "screens/14-switch-1x.png",
+      "source": "design-c-2026-10-25/screens/14-switch-1x.png",
+      "sha256": "b1b5c3a74298bf311b617e5eefb39895275d1994f6782390ea0697ba83000f26",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "path": "screens/14-switch.png",
+      "source": "design-c-2026-10-25/screens/14-switch.png",
+      "sha256": "7e19c0915816888cae86fbe9db2efdd91eda551195d9ee5ce3379daa5033724c",
+      "width": 1170,
+      "height": 2532
+    },
+    {
+      "path": "screens/15-missing-1x.png",
+      "source": "design-c-2026-10-25/screens/15-missing-1x.png",
+      "sha256": "0c1c721ba4a3ec19ea53c6ff4f54631c53862b2d25d68513426d96cf81909f8c",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "path": "screens/15-missing.png",
+      "source": "design-c-2026-10-25/screens/15-missing.png",
+      "sha256": "5650cccfb874953dc5e5fbf7a534c6ac8e0f90862c00f6d66cc14ebe5ca801e6",
+      "width": 1170,
+      "height": 2532
+    },
+    {
+      "path": "screens/16-materials-1x.png",
+      "source": "design-c-2026-10-25/screens/16-materials-1x.png",
+      "sha256": "89c28b1c35d6667e3426c66683acf21f056977695b6740fb1143d66a7de06bb6",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "path": "screens/16-materials.png",
+      "source": "design-c-2026-10-25/screens/16-materials.png",
+      "sha256": "c94013ebfda67e8a57412b55f9541dcc4a11ec3587773051842bc6d6957d349d",
+      "width": 1170,
+      "height": 2532
+    },
+    {
+      "path": "screens/17-complete-1x.png",
+      "source": "design-c-2026-10-25/screens/17-complete-1x.png",
+      "sha256": "786019abe637ec3ebcf108b2cffdc41650c7a718c129d772a6318982ad49d6b8",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "path": "screens/17-complete.png",
+      "source": "design-c-2026-10-25/screens/17-complete.png",
+      "sha256": "64ad3db23b6549c341608c0504dd4632125e2bf7ca9c52e7251646deadb1854c",
+      "width": 1170,
+      "height": 2532
+    },
+    {
+      "path": "screens/18-complete-error-1x.png",
+      "source": "design-c-2026-10-25/screens/18-complete-error-1x.png",
+      "sha256": "3a7449424b42d7ca313d562cb8a8970001fb87738eb05c9650df8818d9a53675",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "path": "screens/18-complete-error.png",
+      "source": "design-c-2026-10-25/screens/18-complete-error.png",
+      "sha256": "3bb27223480b18885b4550ba55aa7e1002f985e8ef72bb25b263bea6e39f21ad",
+      "width": 1170,
+      "height": 2532
+    },
+    {
+      "path": "screens/19-cancel-1x.png",
+      "source": "design-c-2026-10-25/screens/19-cancel-1x.png",
+      "sha256": "c8e3b1ae4988708a8be0d139741cd3d740a4895245aef5be39c0c3eeac26c667",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "path": "screens/19-cancel.png",
+      "source": "design-c-2026-10-25/screens/19-cancel.png",
+      "sha256": "ef2a23b615e774eea77b2ac75b79be1d4fc2dd44f86486a7f43485876e0856a5",
+      "width": 1170,
+      "height": 2532
+    },
+    {
+      "path": "screens/20-plan-1x.png",
+      "source": "design-c-2026-10-25/screens/20-plan-1x.png",
+      "sha256": "886b76f83240b37fae90ab996b26d00015e876040f8598583fe4a9abe1d282d1",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "path": "screens/20-plan.png",
+      "source": "design-c-2026-10-25/screens/20-plan.png",
+      "sha256": "beab2ecaec35839f14d81ff172eca4647125a2876d749ddb2f401784f5860e53",
+      "width": 1170,
+      "height": 2532
+    },
+    {
+      "path": "screens/21-history-1x.png",
+      "source": "design-c-2026-10-25/screens/21-history-1x.png",
+      "sha256": "85cc6fbd8dd26d964b7af22002d16c20d152fecfd87a534102f421e05e26d228",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "path": "screens/21-history.png",
+      "source": "design-c-2026-10-25/screens/21-history.png",
+      "sha256": "16fded5720b95ee61502e281257eae0c41a3580a1701177169392bfc25ecb763",
+      "width": 1170,
+      "height": 2532
+    },
+    {
+      "path": "screens/22-library-1x.png",
+      "source": "design-c-2026-10-25/screens/22-library-1x.png",
+      "sha256": "2a07bb7dffb18981109bcfff2dcee75d59eb8398a76823b29e33aa92a7ea68e8",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "path": "screens/22-library.png",
+      "source": "design-c-2026-10-25/screens/22-library.png",
+      "sha256": "f50ab3f3d3c4bef4658d5ec455a588bc657ca33d4a932b3d615c660241fb31e1",
+      "width": 1170,
+      "height": 2532
+    },
+    {
+      "path": "screens/23-menus-1x.png",
+      "source": "design-c-2026-10-25/screens/23-menus-1x.png",
+      "sha256": "02326e50d7ccb543ebe0b1b6189d6d053a1426de9a4ab01a6bba82cd69a8ba60",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "path": "screens/23-menus.png",
+      "source": "design-c-2026-10-25/screens/23-menus.png",
+      "sha256": "a3ebccabaf7b6204a833b59b11bfbb863f2b6cbf926786772f561aa9ff0b085d",
+      "width": 1170,
+      "height": 2532
+    },
+    {
+      "path": "screens/24-profile-1x.png",
+      "source": "design-c-2026-10-25/screens/24-profile-1x.png",
+      "sha256": "cc056be3d13b016345133e5fa878e6f28052ceff9f74a39cb0c0aec8e541bd4f",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "path": "screens/24-profile.png",
+      "source": "design-c-2026-10-25/screens/24-profile.png",
+      "sha256": "1f9452e5b695cfa10dc1ce53bcb2a7eb17660ca879a81eb38949cc7a6d36d5fa",
+      "width": 1170,
+      "height": 2532
+    },
+    {
+      "path": "screens/25-recipe-1x.png",
+      "source": "design-c-2026-10-25/screens/25-recipe-1x.png",
+      "sha256": "3a5d4b30c72c2f15780d52d6c39b07cb725bf6f5eff5a98bfde9c58055a73886",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "path": "screens/25-recipe.png",
+      "source": "design-c-2026-10-25/screens/25-recipe.png",
+      "sha256": "6b3fe558adaebad2cab42ab28752629748d541b811865db2ec273620768a1e41",
+      "width": 1170,
+      "height": 2532
+    },
+    {
+      "path": "screens/26-edit-1x.png",
+      "source": "design-c-2026-10-25/screens/26-edit-1x.png",
+      "sha256": "f35239f2f1638901cb32556722d2dcd62447ac98ade987b8edd9bd08c14d37e8",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "path": "screens/26-edit.png",
+      "source": "design-c-2026-10-25/screens/26-edit.png",
+      "sha256": "8f3d3dcdb6c50403c1b052058068c6c38300bac4dd3cf62c264d3ec86c1c4871",
+      "width": 1170,
+      "height": 2532
+    },
+    {
+      "path": "screens/27-edit-error-1x.png",
+      "source": "design-c-2026-10-25/screens/27-edit-error-1x.png",
+      "sha256": "1e9a8a5d8ef8a13b40f3ebd74cd9d2c4f4a87e5316c64c62fc05e6aa4987c639",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "path": "screens/27-edit-error.png",
+      "source": "design-c-2026-10-25/screens/27-edit-error.png",
+      "sha256": "10569d7891374f8bed2089c66dfffeca9d79190ab2f75dd062e985aebe54cc54",
+      "width": 1170,
+      "height": 2532
+    },
+    {
+      "path": "screens/28-menu-edit-1x.png",
+      "source": "design-c-2026-10-25/screens/28-menu-edit-1x.png",
+      "sha256": "fd2bd8143dda3ce18c9996dd553bd612b78b26170976464bd91e753e2a645751",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "path": "screens/28-menu-edit.png",
+      "source": "design-c-2026-10-25/screens/28-menu-edit.png",
+      "sha256": "e23466b3434ca398890bb0da6b16c401f9962a41f04ba8728b3e2e931ffe1a43",
+      "width": 1170,
+      "height": 2532
+    },
+    {
+      "path": "screens/29-restore-1x.png",
+      "source": "design-c-2026-10-25/screens/29-restore-1x.png",
+      "sha256": "877b505e279c170b7ea02806918f42765429a5dcf910236a64afe48db769559b",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "path": "screens/29-restore.png",
+      "source": "design-c-2026-10-25/screens/29-restore.png",
+      "sha256": "17fa8861ba0c0f8716434a2675e0776b6f0a2da9cfffc42a278bec7197cc3938",
+      "width": 1170,
+      "height": 2532
+    },
+    {
+      "path": "screens/30-long-step-1x.png",
+      "source": "design-c-2026-10-25/screens/30-long-step-1x.png",
+      "sha256": "a0bfeda3d95ca076650ad83fa41d7c8ffb8ef4e4b22015e5afeb971be21dd5ef",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "path": "screens/30-long-step.png",
+      "source": "design-c-2026-10-25/screens/30-long-step.png",
+      "sha256": "b764a16b3dfbd2435cbea8c09904764c40c1c86040cb4242037d4d3a3cdf2db1",
+      "width": 1170,
+      "height": 2532
+    },
+    {
+      "path": "screens/31-adjust-1x.png",
+      "source": "design-c-2026-10-25/screens/31-adjust-1x.png",
+      "sha256": "c8e0705aa998ff06ab6ebffb355e05655f1e3fcd1bcf794049dc5c73f9bef479",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "path": "screens/31-adjust.png",
+      "source": "design-c-2026-10-25/screens/31-adjust.png",
+      "sha256": "4784c6699939479c1f0de000a828af649cc15bb7b8aff537b5175d68561349d7",
+      "width": 1170,
+      "height": 2532
+    },
+    {
+      "path": "screens/32-adjust-error-1x.png",
+      "source": "design-c-2026-10-25/screens/32-adjust-error-1x.png",
+      "sha256": "8081d7942e97de747c999e7df4c306fd2f93d210373f3a9b7040e2133e589b7f",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "path": "screens/32-adjust-error.png",
+      "source": "design-c-2026-10-25/screens/32-adjust-error.png",
+      "sha256": "0cd88dd943755c0fdf11a5270f46d6d5ebac3578c0ba1aba8fddc6ae755fd4df",
+      "width": 1170,
+      "height": 2532
+    },
+    {
+      "path": "screens/33-empty-library-1x.png",
+      "source": "design-c-2026-10-25/screens/33-empty-library-1x.png",
+      "sha256": "1e4b94220903f401ac61ba5dcc0af7ab5a9a1580ce6f2e12946e4a7eabfc694e",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "path": "screens/33-empty-library.png",
+      "source": "design-c-2026-10-25/screens/33-empty-library.png",
+      "sha256": "5b503809a3e4db07321d817dc97874a0204f1ab85af73a3c3437cbc67adb36c6",
+      "width": 1170,
+      "height": 2532
+    },
+    {
+      "path": "screens/34-empty-shopping-1x.png",
+      "source": "design-c-2026-10-25/screens/34-empty-shopping-1x.png",
+      "sha256": "c8f2c42d0cbc0c02a9b8dfd27ea0fa7aee9cb3f311327b4ef9dd8bf564b4dace",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "path": "screens/34-empty-shopping.png",
+      "source": "design-c-2026-10-25/screens/34-empty-shopping.png",
+      "sha256": "012c68932d3291e8590089155f2b5d3d168a9dcb2fd3ec33653cd9b00a79fc8b",
+      "width": 1170,
+      "height": 2532
+    },
+    {
+      "path": "screens/35-source-recipe-1x.png",
+      "source": "design-c-2026-10-25/screens/35-source-recipe-1x.png",
+      "sha256": "b8b4b61899ebb66cb65ed724bd1afcab244d7ebafbe80ca4a56a2bc82584e022",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "path": "screens/35-source-recipe.png",
+      "source": "design-c-2026-10-25/screens/35-source-recipe.png",
+      "sha256": "c7ff502449fdc42a4e8e21f5fec2580b99c1ff3e7bdbebf27a43eafc0e56e004",
+      "width": 1170,
+      "height": 2532
+    },
+    {
+      "path": "two-tabs-preview.png",
+      "source": "design-c-2026-10-25/two-tabs-preview.png",
+      "sha256": "b57b8bf91999b1cd826fe33ccad3040c457093a444fce73991682a1d49d4db98",
+      "width": 860,
+      "height": 1086
+    },
+    {
+      "path": "two-tabs.png",
+      "source": "design-c-2026-10-25/two-tabs.png",
+      "sha256": "8ece328238ff410e0c37b9129f234f5fe292cea6ad953294f169066a8f94737b",
+      "width": 2580,
+      "height": 3258
+    },
+    {
+      "path": "continuous-flow-preview.png",
+      "source": "design-c-2026-10-25/continuous-flow-preview.png",
+      "sha256": "bedee5ff129ec7bd531238acc9759a49e5772f894e47a74ff79a8c46fc1765b2",
+      "width": 1288,
+      "height": 870
+    },
+    {
+      "path": "continuous-flow.png",
+      "source": "design-c-2026-10-25/continuous-flow.png",
+      "sha256": "9d921bab3b006d5dd962b4584ee290b4e4f4de25a9f7014d9aee676dfceae237",
+      "width": 3864,
+      "height": 2610
+    },
+    {
+      "path": "full-recipe-1x.png",
+      "source": "design-c-2026-10-25/full-recipe-1x.png",
+      "sha256": "369a1c6d610faab17efec9ff7d8600988ab0c173afb7b0a3c68a3830bb231e31",
+      "width": 390,
+      "height": 3520
+    },
+    {
+      "path": "full-recipe.png",
+      "source": "design-c-2026-10-25/full-recipe.png",
+      "sha256": "19b7f436379413663626020b6bac40dfbcf633556c423e9ab74c1cc0fdf3b772",
+      "width": 1170,
+      "height": 10560
+    }
+  ]
+}
