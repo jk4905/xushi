@@ -1,0 +1,676 @@
+'use strict';
+// Authorized phone-trial data, 2026-11-09. Only used when primary storage is absent.
+const XushiInitialHousehold = {
+  "schemaVersion": 2,
+  "activeMealId": "meal-2",
+  "recipes": [
+    {
+      "id": "beef",
+      "name": "勃艮第炖牛肉",
+      "kind": "主菜",
+      "items": [
+        {
+          "id": "beef",
+          "name": "牛肉",
+          "dish": "勃艮第炖牛肉",
+          "source": "清单、步骤1",
+          "note": "牛肩肉、牛肋条、牛腩或腿肉，记录本次选的部位。",
+          "choice": "include",
+          "quantity": "",
+          "status": "unchecked"
+        },
+        {
+          "id": "wine",
+          "name": "红酒",
+          "dish": "勃艮第炖牛肉",
+          "source": "清单、步骤6",
+          "note": "液体用量按你的配方与容器确认。",
+          "choice": "include",
+          "quantity": "",
+          "status": "unchecked"
+        },
+        {
+          "id": "carrot",
+          "name": "胡萝卜",
+          "dish": "勃艮第炖牛肉",
+          "source": "清单、步骤2/5/8",
+          "note": "酱汁与配菜分两份，填写合计用量。",
+          "choice": "include",
+          "quantity": "",
+          "status": "unchecked"
+        },
+        {
+          "id": "onion",
+          "name": "洋葱",
+          "dish": "勃艮第炖牛肉",
+          "source": "清单、步骤2/5/8",
+          "note": "酱汁与配菜分两份，填写合计用量。",
+          "choice": "include",
+          "quantity": "",
+          "status": "unchecked"
+        },
+        {
+          "id": "mushroom",
+          "name": "口蘑",
+          "dish": "勃艮第炖牛肉",
+          "source": "清单、步骤2/8",
+          "note": "",
+          "choice": "include",
+          "quantity": "",
+          "status": "unchecked"
+        },
+        {
+          "id": "bacon",
+          "name": "培根",
+          "dish": "勃艮第炖牛肉",
+          "source": "清单、步骤3/8",
+          "note": "上次漏买。先确认两处是否使用同一份，填写本餐合计量。",
+          "choice": "include",
+          "quantity": "",
+          "status": "unchecked"
+        },
+        {
+          "id": "celery",
+          "name": "西芹",
+          "dish": "勃艮第炖牛肉",
+          "source": "清单、你已确认保留",
+          "note": "不喜欢芹菜，但这道菜按实际需要保留；补充加入步骤。",
+          "choice": "include",
+          "quantity": "",
+          "status": "unchecked"
+        },
+        {
+          "id": "flour",
+          "name": "面粉",
+          "dish": "勃艮第炖牛肉",
+          "source": "步骤5，原清单未列",
+          "note": "原笔记写一勺，确认你使用的量。",
+          "choice": "include",
+          "quantity": "",
+          "status": "unchecked"
+        },
+        {
+          "id": "stock-cube",
+          "name": "浓汤宝",
+          "dish": "勃艮第炖牛肉",
+          "source": "步骤6，原清单未列",
+          "note": "原笔记写一块，并按液体量调整。",
+          "choice": "include",
+          "quantity": "",
+          "status": "unchecked"
+        },
+        {
+          "id": "tomato-paste",
+          "name": "番茄膏",
+          "dish": "勃艮第炖牛肉",
+          "source": "步骤6，原清单未列",
+          "note": "与鲜番茄分别核对。",
+          "choice": "include",
+          "quantity": "",
+          "status": "unchecked"
+        },
+        {
+          "id": "butter",
+          "name": "黄油",
+          "dish": "勃艮第炖牛肉",
+          "source": "步骤8，原清单未列",
+          "note": "",
+          "choice": "include",
+          "quantity": "",
+          "status": "unchecked"
+        },
+        {
+          "id": "parsley",
+          "name": "荷兰芹",
+          "dish": "勃艮第炖牛肉",
+          "source": "步骤10，原清单未列",
+          "note": "确认个人版本是否采用。",
+          "choice": "pending",
+          "quantity": "",
+          "status": "unchecked"
+        },
+        {
+          "id": "fresh-tomato",
+          "name": "鲜番茄",
+          "dish": "勃艮第炖牛肉",
+          "source": "原清单列出，步骤用途待补",
+          "note": "确认保留或省略，并补充用法。",
+          "choice": "pending",
+          "quantity": "",
+          "status": "unchecked"
+        },
+        {
+          "id": "rosemary",
+          "name": "迷迭香",
+          "dish": "勃艮第炖牛肉",
+          "source": "原清单列出，步骤用途待补",
+          "note": "确认保留或省略，并补充用法。",
+          "choice": "pending",
+          "quantity": "",
+          "status": "unchecked"
+        },
+        {
+          "id": "salt",
+          "name": "盐",
+          "dish": "勃艮第炖牛肉",
+          "source": "步骤6，按需调味",
+          "note": "确认是否纳入本版；其他菜使用时补充合计量。",
+          "choice": "pending",
+          "quantity": "",
+          "status": "unchecked"
+        },
+        {
+          "id": "beef-stock",
+          "name": "牛高汤",
+          "dish": "勃艮第炖牛肉",
+          "source": "步骤9，按需调整",
+          "note": "确认是否采用。",
+          "choice": "pending",
+          "quantity": "",
+          "status": "unchecked"
+        }
+      ],
+      "steps": [
+        {
+          "title": "切大块牛肉",
+          "text": "牛腩或者腿肉切大块。"
+        },
+        {
+          "title": "分好蔬菜",
+          "text": "蔬菜准备胡萝卜，洋葱，口蘑。洋葱胡萝卜分两份，一份切碎熬煮酱汁，一份切小块炖煮后作为配菜。"
+        },
+        {
+          "title": "煸出培根油脂",
+          "text": "空锅放切小块的培根，焙出油脂。"
+        },
+        {
+          "title": "煎牛肉表面",
+          "text": "牛肉擦干水分，锅要足够热，少量放牛肉避免温度下降太多，迅速焦化表面。"
+        },
+        {
+          "title": "炒蔬菜和面粉",
+          "text": "取出牛肉，加入切小块的蔬菜翻炒，加一勺面粉炒熟。"
+        },
+        {
+          "title": "加入炖煮液体",
+          "text": "放回牛肉，加等量水和红酒没过肉块，一块浓汤宝（量根据水来），少量番茄膏，可以适当加盐调味。"
+        },
+        {
+          "title": "放进烤箱慢炖",
+          "text": "找一个可以放进烤箱的容器165度炖煮4个小时。"
+        },
+        {
+          "title": "炒配菜",
+          "text": "黄油炒口蘑，切块的胡萝卜和洋葱，加入培根。"
+        },
+        {
+          "title": "汇合，再炖煮",
+          "text": "炖好的牛肉取出放配菜锅里，过滤汤汁，根据水量可以适当加一些牛高汤调整浓稠度，继续炖煮20分钟。"
+        },
+        {
+          "title": "食用前收尾",
+          "text": "食用前加一把切碎的荷兰芹。"
+        }
+      ],
+      "sourceUrl": "https://b23.tv/f09s6Nz"
+    },
+    {
+      "id": "broccoli",
+      "name": "蒜香西兰花",
+      "kind": "配菜",
+      "items": [
+        {
+          "id": "broccoli",
+          "name": "西兰花",
+          "dish": "蒜香西兰花",
+          "source": "你的实际菜单",
+          "note": "完整做法和其他用料还需核对。",
+          "choice": "include",
+          "quantity": "",
+          "status": "unchecked"
+        },
+        {
+          "id": "garlic",
+          "name": "蒜",
+          "dish": "蒜香西兰花",
+          "source": "你的实际菜单、剥蒜操作",
+          "note": "若其他菜也使用，填写全餐合计用量。",
+          "choice": "include",
+          "quantity": "",
+          "status": "unchecked"
+        }
+      ],
+      "steps": []
+    },
+    {
+      "id": "rice",
+      "name": "米饭",
+      "kind": "主食",
+      "items": [
+        {
+          "id": "rice",
+          "name": "米",
+          "dish": "米饭",
+          "source": "你的实际菜单",
+          "note": "",
+          "choice": "include",
+          "quantity": "",
+          "status": "unchecked"
+        }
+      ],
+      "steps": []
+    }
+  ],
+  "meals": [
+    {
+      "id": "meal-1",
+      "title": "模拟器验证餐",
+      "date": "",
+      "guestIds": [],
+      "recipeIds": [
+        "beef",
+        "broccoli",
+        "rice"
+      ],
+      "status": "planned",
+      "data": {
+        "items": [
+          {
+            "id": "beef",
+            "name": "牛肉",
+            "dish": "勃艮第炖牛肉",
+            "source": "清单、步骤1",
+            "note": "牛肩肉、牛肋条、牛腩或腿肉，记录本次选的部位。",
+            "choice": "include",
+            "quantity": "",
+            "status": "bought"
+          },
+          {
+            "id": "wine",
+            "name": "红酒",
+            "dish": "勃艮第炖牛肉",
+            "source": "清单、步骤6",
+            "note": "液体用量按你的配方与容器确认。",
+            "choice": "include",
+            "quantity": "",
+            "status": "bought"
+          },
+          {
+            "id": "carrot",
+            "name": "胡萝卜",
+            "dish": "勃艮第炖牛肉",
+            "source": "清单、步骤2/5/8",
+            "note": "酱汁与配菜分两份，填写合计用量。",
+            "choice": "include",
+            "quantity": "",
+            "status": "unchecked"
+          },
+          {
+            "id": "onion",
+            "name": "洋葱",
+            "dish": "勃艮第炖牛肉",
+            "source": "清单、步骤2/5/8",
+            "note": "酱汁与配菜分两份，填写合计用量。",
+            "choice": "include",
+            "quantity": "",
+            "status": "unchecked"
+          },
+          {
+            "id": "mushroom",
+            "name": "口蘑",
+            "dish": "勃艮第炖牛肉",
+            "source": "清单、步骤2/8",
+            "note": "",
+            "choice": "include",
+            "quantity": "",
+            "status": "unchecked"
+          },
+          {
+            "id": "bacon",
+            "name": "培根",
+            "dish": "勃艮第炖牛肉",
+            "source": "清单、步骤3/8",
+            "note": "上次漏买。先确认两处是否使用同一份，填写本餐合计量。",
+            "choice": "include",
+            "quantity": "",
+            "status": "unchecked"
+          },
+          {
+            "id": "celery",
+            "name": "西芹",
+            "dish": "勃艮第炖牛肉",
+            "source": "清单、你已确认保留",
+            "note": "不喜欢芹菜，但这道菜按实际需要保留；补充加入步骤。",
+            "choice": "include",
+            "quantity": "",
+            "status": "unchecked"
+          },
+          {
+            "id": "flour",
+            "name": "面粉",
+            "dish": "勃艮第炖牛肉",
+            "source": "步骤5，原清单未列",
+            "note": "原笔记写一勺，确认你使用的量。",
+            "choice": "include",
+            "quantity": "",
+            "status": "unchecked"
+          },
+          {
+            "id": "stock-cube",
+            "name": "浓汤宝",
+            "dish": "勃艮第炖牛肉",
+            "source": "步骤6，原清单未列",
+            "note": "原笔记写一块，并按液体量调整。",
+            "choice": "include",
+            "quantity": "",
+            "status": "unchecked"
+          },
+          {
+            "id": "tomato-paste",
+            "name": "番茄膏",
+            "dish": "勃艮第炖牛肉",
+            "source": "步骤6，原清单未列",
+            "note": "与鲜番茄分别核对。",
+            "choice": "include",
+            "quantity": "",
+            "status": "unchecked"
+          },
+          {
+            "id": "butter",
+            "name": "黄油",
+            "dish": "勃艮第炖牛肉",
+            "source": "步骤8，原清单未列",
+            "note": "",
+            "choice": "include",
+            "quantity": "",
+            "status": "unchecked"
+          },
+          {
+            "id": "parsley",
+            "name": "荷兰芹",
+            "dish": "勃艮第炖牛肉",
+            "source": "步骤10，原清单未列",
+            "note": "确认个人版本是否采用。",
+            "choice": "pending",
+            "quantity": "",
+            "status": "unchecked"
+          },
+          {
+            "id": "fresh-tomato",
+            "name": "鲜番茄",
+            "dish": "勃艮第炖牛肉",
+            "source": "原清单列出，步骤用途待补",
+            "note": "确认保留或省略，并补充用法。",
+            "choice": "pending",
+            "quantity": "",
+            "status": "unchecked"
+          },
+          {
+            "id": "rosemary",
+            "name": "迷迭香",
+            "dish": "勃艮第炖牛肉",
+            "source": "原清单列出，步骤用途待补",
+            "note": "确认保留或省略，并补充用法。",
+            "choice": "pending",
+            "quantity": "",
+            "status": "unchecked"
+          },
+          {
+            "id": "salt",
+            "name": "盐",
+            "dish": "勃艮第炖牛肉",
+            "source": "步骤6，按需调味",
+            "note": "确认是否纳入本版；其他菜使用时补充合计量。",
+            "choice": "pending",
+            "quantity": "",
+            "status": "unchecked"
+          },
+          {
+            "id": "beef-stock",
+            "name": "牛高汤",
+            "dish": "勃艮第炖牛肉",
+            "source": "步骤9，按需调整",
+            "note": "确认是否采用。",
+            "choice": "pending",
+            "quantity": "",
+            "status": "unchecked"
+          },
+          {
+            "id": "broccoli",
+            "name": "西兰花",
+            "dish": "蒜香西兰花",
+            "source": "你的实际菜单",
+            "note": "完整做法和其他用料还需核对。",
+            "choice": "include",
+            "quantity": "",
+            "status": "unchecked"
+          },
+          {
+            "id": "garlic",
+            "name": "蒜",
+            "dish": "蒜香西兰花",
+            "source": "你的实际菜单、剥蒜操作",
+            "note": "若其他菜也使用，填写全餐合计用量。",
+            "choice": "include",
+            "quantity": "",
+            "status": "unchecked"
+          },
+          {
+            "id": "rice",
+            "name": "米",
+            "dish": "米饭",
+            "source": "你的实际菜单",
+            "note": "",
+            "choice": "include",
+            "quantity": "",
+            "status": "unchecked"
+          }
+        ],
+        "reviewed": false,
+        "notes": "模拟器验证：保存后返回原阅读位置",
+        "versions": []
+      }
+    },
+    {
+      "id": "meal-2",
+      "title": "今晚这餐",
+      "date": "",
+      "guestIds": [],
+      "recipeIds": [
+        "beef",
+        "broccoli"
+      ],
+      "status": "planned",
+      "data": {
+        "items": [
+          {
+            "id": "beef",
+            "name": "牛肉",
+            "dish": "勃艮第炖牛肉",
+            "source": "清单、步骤1",
+            "note": "牛肩肉、牛肋条、牛腩或腿肉，记录本次选的部位。",
+            "choice": "include",
+            "quantity": "",
+            "status": "bought"
+          },
+          {
+            "id": "wine",
+            "name": "红酒",
+            "dish": "勃艮第炖牛肉",
+            "source": "清单、步骤6",
+            "note": "液体用量按你的配方与容器确认。",
+            "choice": "include",
+            "quantity": "",
+            "status": "bought"
+          },
+          {
+            "id": "carrot",
+            "name": "胡萝卜",
+            "dish": "勃艮第炖牛肉",
+            "source": "清单、步骤2/5/8",
+            "note": "酱汁与配菜分两份，填写合计用量。",
+            "choice": "include",
+            "quantity": "",
+            "status": "bought"
+          },
+          {
+            "id": "onion",
+            "name": "洋葱",
+            "dish": "勃艮第炖牛肉",
+            "source": "清单、步骤2/5/8",
+            "note": "酱汁与配菜分两份，填写合计用量。",
+            "choice": "include",
+            "quantity": "",
+            "status": "bought"
+          },
+          {
+            "id": "mushroom",
+            "name": "口蘑",
+            "dish": "勃艮第炖牛肉",
+            "source": "清单、步骤2/8",
+            "note": "",
+            "choice": "include",
+            "quantity": "",
+            "status": "bought"
+          },
+          {
+            "id": "bacon",
+            "name": "培根",
+            "dish": "勃艮第炖牛肉",
+            "source": "清单、步骤3/8",
+            "note": "上次漏买。先确认两处是否使用同一份，填写本餐合计量。",
+            "choice": "include",
+            "quantity": "",
+            "status": "bought"
+          },
+          {
+            "id": "celery",
+            "name": "西芹",
+            "dish": "勃艮第炖牛肉",
+            "source": "清单、你已确认保留",
+            "note": "不喜欢芹菜，但这道菜按实际需要保留；补充加入步骤。",
+            "choice": "include",
+            "quantity": "",
+            "status": "bought"
+          },
+          {
+            "id": "flour",
+            "name": "面粉",
+            "dish": "勃艮第炖牛肉",
+            "source": "步骤5，原清单未列",
+            "note": "原笔记写一勺，确认你使用的量。",
+            "choice": "include",
+            "quantity": "",
+            "status": "bought"
+          },
+          {
+            "id": "stock-cube",
+            "name": "浓汤宝",
+            "dish": "勃艮第炖牛肉",
+            "source": "步骤6，原清单未列",
+            "note": "原笔记写一块，并按液体量调整。",
+            "choice": "include",
+            "quantity": "",
+            "status": "bought"
+          },
+          {
+            "id": "tomato-paste",
+            "name": "番茄膏",
+            "dish": "勃艮第炖牛肉",
+            "source": "步骤6，原清单未列",
+            "note": "与鲜番茄分别核对。",
+            "choice": "include",
+            "quantity": "",
+            "status": "bought"
+          },
+          {
+            "id": "butter",
+            "name": "黄油",
+            "dish": "勃艮第炖牛肉",
+            "source": "步骤8，原清单未列",
+            "note": "",
+            "choice": "include",
+            "quantity": "",
+            "status": "bought"
+          },
+          {
+            "id": "parsley",
+            "name": "荷兰芹",
+            "dish": "勃艮第炖牛肉",
+            "source": "步骤10，原清单未列",
+            "note": "确认个人版本是否采用。",
+            "choice": "pending",
+            "quantity": "",
+            "status": "unchecked"
+          },
+          {
+            "id": "fresh-tomato",
+            "name": "鲜番茄",
+            "dish": "勃艮第炖牛肉",
+            "source": "原清单列出，步骤用途待补",
+            "note": "确认保留或省略，并补充用法。",
+            "choice": "pending",
+            "quantity": "",
+            "status": "unchecked"
+          },
+          {
+            "id": "rosemary",
+            "name": "迷迭香",
+            "dish": "勃艮第炖牛肉",
+            "source": "原清单列出，步骤用途待补",
+            "note": "确认保留或省略，并补充用法。",
+            "choice": "pending",
+            "quantity": "",
+            "status": "unchecked"
+          },
+          {
+            "id": "salt",
+            "name": "盐",
+            "dish": "勃艮第炖牛肉",
+            "source": "步骤6，按需调味",
+            "note": "确认是否纳入本版；其他菜使用时补充合计量。",
+            "choice": "pending",
+            "quantity": "",
+            "status": "unchecked"
+          },
+          {
+            "id": "beef-stock",
+            "name": "牛高汤",
+            "dish": "勃艮第炖牛肉",
+            "source": "步骤9，按需调整",
+            "note": "确认是否采用。",
+            "choice": "pending",
+            "quantity": "",
+            "status": "unchecked"
+          },
+          {
+            "id": "broccoli",
+            "name": "西兰花",
+            "dish": "蒜香西兰花",
+            "source": "你的实际菜单",
+            "note": "完整做法和其他用料还需核对。",
+            "choice": "include",
+            "quantity": "",
+            "status": "bought"
+          },
+          {
+            "id": "garlic",
+            "name": "蒜",
+            "dish": "蒜香西兰花",
+            "source": "你的实际菜单、剥蒜操作",
+            "note": "若其他菜也使用，填写全餐合计用量。",
+            "choice": "include",
+            "quantity": "",
+            "status": "bought"
+          }
+        ],
+        "reviewed": false,
+        "notes": "",
+        "versions": []
+      }
+    }
+  ],
+  "menus": [],
+  "guests": []
+};
+if (typeof module !== 'undefined') module.exports = XushiInitialHousehold;

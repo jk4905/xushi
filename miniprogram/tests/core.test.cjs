@@ -2,7 +2,37 @@ const test=require('node:test'),assert=require('node:assert/strict'),fs=require(
 const {setup,memory}=require('./harness.cjs');
 const {createStore,H,M,KEY,META_KEY}=require('../core/store');
 const {seedRecipes,beefSteps}=require('../core/content');
-test('new install is empty; explicit sample preserves user recipe and omissions',()=>{
+test('fresh trial installs the approved data once and preserves purchases and edits after reload',()=>{
+ const api=memory(),store=createStore(api),expected=require('../core/seed');
+ assert.deepEqual(store.get(),expected);assert.equal(store.issue(),'');
+ assert.equal(expected.recipes.length,3);assert.equal(expected.meals.length,2);
+ assert.equal(store.meal().title,'今晚这餐');assert.equal(store.meal().data.items.filter(i=>i.status==='bought').length,13);
+ assert.equal(store.get().recipes.find(r=>r.id==='broccoli').steps.length,0);assert.equal(store.get().recipes.find(r=>r.id==='rice').steps.length,0);
+ assert.equal(store.get().recipes.find(r=>r.id==='beef').items.find(i=>i.id==='celery').choice,'include');
+ assert.deepEqual(createStore(api).get(),expected);
+ store.change(h=>H.updateMealData(h,M.updateItem(store.meal().data,'bacon',{status:'to-buy'})));
+ assert.equal(createStore(api).meal().data.items.find(i=>i.id==='bacon').status,'to-buy');
+ assert.equal(createStore(api).get().meals.length,2);
+});
+test('initial write or readback failure reports unsaved data; retry persists without duplicates',()=>{
+ for(const failure of ['write','readback']) {
+  const api=memory(),read=api.getStorageSync;let wrongRead=false;
+  if(failure==='write')api.failWrite=true;
+  else {const write=api.setStorageSync;api.setStorageSync=(key,value)=>{write(key,value);wrongRead=true;};api.getStorageSync=key=>{if(key===KEY&&wrongRead)return '{}';return read(key);};}
+  const store=createStore(api);assert.equal(store.get().meals.length,2);assert.match(store.issue(),/暂未保存/);
+  api.failWrite=false;wrongRead=false;api.getStorageSync=read;
+  store.commit(store.get());assert.equal(store.issue(),'');assert.deepEqual(createStore(api).get(),store.get());
+  assert.equal(createStore(api).get().meals.length,2);
+ }
+});
+test('invalid existing primary values never get replaced by bundled data',()=>{
+ for(const value of ['{broken','null','false','0','{}']) {
+  const api=memory();api.data.set(KEY,value);const store=createStore(api);
+  assert.match(store.issue(),/原数据已保留/);assert.throws(()=>store.commit(require('../core/seed')));
+  assert.equal(api.data.get(KEY),value);
+ }
+});
+test('saved empty household stays empty; explicit sample preserves user recipe and omissions',()=>{
  const {store}=setup();assert.equal(store.get().recipes.length,0);store.addExamples();assert.equal(store.get().meals.length,0);assert.equal(store.get().recipes.length,3);store.addExamples();assert.equal(store.get().recipes.length,3);
  const beef=store.get().recipes.find(r=>r.id==='beef');assert.equal(beef.steps.length,10);assert.equal(beef.items.find(i=>i.id==='celery').choice,'include');assert.equal(beef.items.find(i=>i.id==='bacon').quantity,'');assert.equal(store.get().recipes.find(r=>r.id==='broccoli').steps.length,0);
  const html=fs.readFileSync(require('node:path').resolve(__dirname,'../../h5/weekend-menu-prototype.html'),'utf8');
@@ -27,7 +57,7 @@ test('write failure retains last committed data and draft; retry creates only on
  api.failWrite=false;store.change(h=>H.createMeal(h,{title:'晚餐',recipeIds:['beef']}));assert.equal(createStore(api).get().meals.length,1);
 });
 test('readback failure never claims success; same candidate retry has no duplicate',()=>{
- const api=memory(),store=createStore(api);store.addExamples();const next=H.createMeal(store.get(),{title:'晚餐',recipeIds:['beef']});api.failRead=true;
+ const {api,store}=setup();store.addExamples();const next=H.createMeal(store.get(),{title:'晚餐',recipeIds:['beef']});api.failRead=true;
  assert.throws(()=>store.commit(next),/保存/);assert.equal(store.get().meals.length,0);api.failRead=false;store.commit(next);assert.equal(createStore(api).get().meals.length,1);
 });
 test('corrupt primary storage is not silently replaced by empty data',()=>{

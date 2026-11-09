@@ -7,9 +7,9 @@ const vm = require('node:vm');
 const root = path.resolve(__dirname, '..');
 const script = path.join(root, 'scripts/sync-h5.cjs');
 const code = fs.readFileSync(script, 'utf8');
-const models = ['core/meal.js', 'core/household.js', 'core/content.js'];
+const models = ['core/meal.js', 'core/household.js', 'core/content.js', 'core/seed.js'];
 const original = new Map([
-  '../h5/weekend-menu-prototype.html', '../h5/weekend-household-model.js', ...models
+  '../h5/weekend-menu-prototype.html', '../h5/weekend-household-model.js', '../h5/weekend-household-seed.js', ...models
 ].map(file => {
   const target = path.resolve(root, file);
   return [target, fs.readFileSync(target, 'utf8')];

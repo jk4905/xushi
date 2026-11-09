@@ -6,16 +6,16 @@
 
 1. 在官方微信开发者工具中导入本目录 `miniprogram/`，不要选仓库根目录。
 2. 使用项目已配置 AppID 的管理员或授权开发者身份；选择「不使用云服务」后编译，不需要关闭合法域名校验。
-3. 新缓存首次启动为空。在「菜谱」添加原始三道菜谱，或在「设置与备份」导入已有 JSON。
+3. 当前试用包在没有本地家庭记录时，自动保存旧工程的 3 道菜谱和 2 个测试餐次（含采购状态），无需传 JSON。已有数据、保存过的空库和损坏记录不覆盖。
 4. 按 [验收脚本](ACCEPTANCE.md) 走主流程，再用开发者工具预览到 iPhone。未发布小程序不通过微信搜索进入。
 
-从旧工程切换到此目录前，先导出已有数据。开发者工具可能把不同工程路径的模拟器缓存分开；新目录为空不等于旧数据已丢失，请在旧工程导出后导入。不要清除旧缓存。
+内置数据是 2026-11-09 已导出的固定测试快照，不包含阅读位置或未保存草稿，也不会持续同步电脑与手机。旧小程序代码已移至废纸篓，当前唯一工程为本目录，旧缓存未清除。其他已有记录仍可通过备份迁移。
 
 ## 维护
 
 后续需求同时改 H5 和本版本，详见 [双端维护约定](../docs/dual-platform.md)。根目录 `npm test` 运行两端检查；在本目录 `npm test` 只运行小程序测试，不能代替双端验证。
 
-`core/meal.js`、`core/household.js`、`core/content.js` 从 H5 生成。不要直接手改；在仓库根目录运行 `npm run sync`。共享模型的 CommonJS / 属性检查 / URL 校验适配在 `scripts/sync-h5.cjs` 中维护。
+`core/meal.js`、`core/household.js`、`core/content.js`、`core/seed.js` 从 H5 生成。不要直接手改；在仓库根目录运行 `npm run sync`。共享模型的 CommonJS / 属性检查 / URL 校验适配在 `scripts/sync-h5.cjs` 中维护。
 
 PNG 图示已随代码提供。只有重新生成图示才需要开发机可用的 sharp：`XUSHI_SHARP=/absolute/path/to/sharp node scripts/sync-h5.cjs --images`；常规运行和检查不需要安装它。
 

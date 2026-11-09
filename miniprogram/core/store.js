@@ -2,21 +2,27 @@
 const H = require('./household');
 const M = require('./meal');
 const {seedRecipes} = require('./content');
+const initialHousehold = require('./seed');
 const KEY = 'xushi-household-v2', META_KEY = 'xushi-reading-drafts-v1';
 const LIMIT = 900 * 1024, IMPORT_LIMIT=4*1024*1024;
 const clone = value => JSON.parse(JSON.stringify(value));
 const empty = () => ({schemaVersion:2,activeMealId:null,recipes:[],meals:[],menus:[],guests:[]});
 const byteLength = value => encodeURIComponent(value).replace(/%[A-F\d]{2}/g,'x').length;
 function createStore(api) {
-  let household = empty(), metadata = {drafts:{},cooking:{}}, epoch='legacy', blocked = '', metaBlocked = '', loaded = false;
+  let household = empty(), metadata = {drafts:{},cooking:{}}, epoch='legacy', blocked = '', initialSaveError = '', metaBlocked = '', loaded = false;
   const read = key => { const value = api.getStorageSync(key); return typeof value === 'string' && value ? JSON.parse(value) : value; };
   function load() {
     if (loaded) return;
     loaded = true;
-    try { const saved = read(KEY); if(saved) {
+    try { const saved = read(KEY); if(saved !== '' && saved !== undefined) {
       const data=saved.storageVersion===1?saved.household:saved;
       if(!H.validate(data)||(saved.storageVersion===1&&typeof saved.epoch!=='string')) throw new Error('invalid');
       household=data;epoch=saved.storageVersion===1?saved.epoch:'legacy';
+    } else {
+      if(!H.validate(initialHousehold)) throw new Error('invalid seed');
+      household=clone(initialHousehold);epoch='bundled-test-20261109';
+      try { write(KEY,{storageVersion:1,epoch,household}); }
+      catch (_) { initialSaveError='试用数据暂未保存，请检查设备空间后重新打开，或修改记录重试保存。'; }
     } }
     catch (_) { blocked='本地记录未能读取，原数据已保留。请到备份页导出原始记录，或导入有效备份恢复。'; }
     try {
@@ -48,12 +54,12 @@ function createStore(api) {
   const store = {
     get() {load();return clone(household);},
     meta() {load();return clone(metadata);},
-    issue() {load();return blocked||metaBlocked;},
+    issue() {load();return blocked||initialSaveError||metaBlocked;},
     meal(id) {load();return clone(household.meals.find(m=>m.id===(id||household.activeMealId))||null);},
     commit(next) {
       load(); if(blocked) throw new Error(blocked);
       if(!H.validate(next)) throw new Error('用餐数据校验未通过，原记录未改动。');
-      write(KEY,{storageVersion:1,epoch,household:next}); household=clone(next); return store.get();
+      write(KEY,{storageVersion:1,epoch,household:next}); household=clone(next); initialSaveError=''; return store.get();
     },
     change(fn) {return store.commit(fn(store.get()));},
     draft(key) {load();return clone(metadata.drafts[key]||null);},
@@ -100,7 +106,7 @@ function createStore(api) {
       const existingSnapshot=api.getStorageSync(KEY+'-before-import');
       if(original&&(!sameCandidate||!existingSnapshot)) {try{api.setStorageSync(KEY+'-before-import',original);}catch(_){throw new Error('未能备份现有记录，已停止导入。');}}
       const importedEpoch=Date.now().toString(36)+'-'+Math.random().toString(36).slice(2);
-      write(KEY,{storageVersion:1,epoch:importedEpoch,household:parsed});household=clone(parsed);epoch=importedEpoch;blocked='';
+      write(KEY,{storageVersion:1,epoch:importedEpoch,household:parsed});household=clone(parsed);epoch=importedEpoch;blocked='';initialSaveError='';
       // Imported recipe/meal ids may overlap; never reuse unrelated reading positions or drafts.
       metadata={drafts:{},cooking:{}};
       try {write(META_KEY,{epoch,...metadata});metaBlocked='';}catch(_){metaBlocked='餐次已导入，辅助记录重置失败。请在备份页重试重置。';}

@@ -6,6 +6,7 @@ const { networkInterfaces } = require('node:os');
 const { join } = require('node:path');
 
 function createHandler(html, model = readFileSync(join(__dirname, 'weekend-household-model.js')), css = readFileSync(join(__dirname, 'weekend-menu-c.css'))) {
+  const seed = readFileSync(join(__dirname, 'weekend-household-seed.js'));
   return (request, response) => {
     response.setHeader('Cache-Control', 'no-store');
     response.setHeader('X-Content-Type-Options', 'nosniff');
@@ -16,15 +17,16 @@ function createHandler(html, model = readFileSync(join(__dirname, 'weekend-house
       return;
     }
     const pathname = (request.url || '').split('?')[0];
-    if (!['/', '/weekend-menu-prototype.html', '/weekend-household-model.js', '/weekend-menu-c.css'].includes(pathname)) {
+    if (!['/', '/weekend-menu-prototype.html', '/weekend-household-model.js', '/weekend-household-seed.js', '/weekend-menu-c.css'].includes(pathname)) {
       response.writeHead(404);
       response.end(request.method === 'HEAD' ? undefined : '页面不存在。');
       return;
     }
-    const script = pathname === '/weekend-household-model.js';
+    const seedScript = pathname === '/weekend-household-seed.js';
+    const script = pathname === '/weekend-household-model.js' || seedScript;
     const style = pathname === '/weekend-menu-c.css';
     response.writeHead(200, { 'Content-Type': script ? 'application/javascript; charset=utf-8' : style ? 'text/css; charset=utf-8' : 'text/html; charset=utf-8' });
-    response.end(request.method === 'HEAD' ? undefined : script ? model : style ? css : html);
+    response.end(request.method === 'HEAD' ? undefined : seedScript ? seed : script ? model : style ? css : html);
   };
 }
 

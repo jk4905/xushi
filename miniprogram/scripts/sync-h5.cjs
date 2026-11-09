@@ -42,6 +42,7 @@ const dishes = vm.runInContext(rawDishes, context, {timeout:1000})
   .map(({key,name,kind}) => ({id:key,name,kind}));
 const seedRecipes = dishes.map(d => ({...d,steps:d.id==='beef'?beefSteps.map(({title,text})=>({title,text})):[]}));
 sync('core/content.js', header + 'const beefSteps = '+JSON.stringify(beefSteps,null,2)+';\nconst seedRecipes = '+JSON.stringify(seedRecipes,null,2)+';\nfunction stepImage(recipe,index) { return recipe.id === "beef" && recipe.steps[index] && beefSteps[index] && recipe.steps[index].text === beefSteps[index].text ? "/assets/step-"+index+".png" : ""; }\nmodule.exports = {beefSteps,seedRecipes,stepImage};\n');
+sync('core/seed.js', header + fs.readFileSync(path.join(source, 'weekend-household-seed.js'), 'utf8'));
 // Rendering SVGs is an optional development action; generated PNGs ship with the project.
 if (process.argv.includes('--images')) {
   const sharp = require(process.env.XUSHI_SHARP || 'sharp');

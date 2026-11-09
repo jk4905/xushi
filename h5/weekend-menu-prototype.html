@@ -587,6 +587,7 @@ dialog::backdrop { background: var(--scrim); }
     globalThis.MealModel=MealModel;
   </script>
   <script src="./weekend-household-model.js"></script>
+  <script src="./weekend-household-seed.js"></script>
   <script id="app-logic">
     const storageKey='weekend-household-prototype-v2';
     let household=null,viewedMealId=null,librarySection='recipes',libraryQuery='',planSection='planned',cookRecipeId='beef',pendingBuilder=null,importBusy=false;
@@ -644,13 +645,19 @@ dialog::backdrop { background: var(--scrim); }
     }
     
     function loadHousehold() {
+      let initialize=false;
       const seedRecipes=dishes.map(dish=>({id:dish.key,name:dish.name,kind:dish.kind,steps:dish.key==='beef'?beefSteps.map(({title,text})=>({title,text})):[]}));
       household=HouseholdModel.migrate(state,seedRecipes);
       try {
         const saved=localStorage.getItem(storageKey);
-        if(saved){const parsed=JSON.parse(saved);if(!HouseholdModel.validate(parsed))throw new Error('invalid');household=parsed;storageNote='已恢复你的餐、菜谱和用餐人记录。';}
-        else {const legacy=localStorage.getItem('weekend-menu-prototype-v1');if(!legacy)household={schemaVersion:2,activeMealId:null,recipes:[],meals:[],menus:[],guests:[]};if(legacy){const parsed=JSON.parse(legacy);if(!MealModel.validate(parsed))throw new Error('invalid');household=HouseholdModel.migrate(parsed,seedRecipes);storageNote='已读取旧配方。修改会另存新版，旧记录仍保留。';}}
+        if(saved!==null){const parsed=JSON.parse(saved);if(!HouseholdModel.validate(parsed))throw new Error('invalid');household=parsed;storageNote='已恢复你的餐、菜谱和用餐人记录。';}
+        else {
+          const legacy=localStorage.getItem('weekend-menu-prototype-v1');
+          if(legacy!==null){const parsed=JSON.parse(legacy);if(!MealModel.validate(parsed))throw new Error('invalid');household=HouseholdModel.migrate(parsed,seedRecipes);storageNote='已读取旧配方。修改会另存新版，旧记录仍保留。';}
+          else {if(!HouseholdModel.validate(XushiInitialHousehold))throw new Error('invalid seed');household=JSON.parse(JSON.stringify(XushiInitialHousehold));initialize=true;}
+        }
       }catch{storageBlocked=true;storageNote='原记录暂时无法读取，已保留。请导出本次修改。';}
+      if(initialize&&!persist())storageNote='试用数据暂未保存，请检查设备空间后刷新，或修改记录重试保存。';
       syncHousehold();
     }
     function currentMeal() {return household.meals.find(meal=>meal.id===(viewedMealId||household.activeMealId))||null;}
@@ -949,7 +956,7 @@ dialog::backdrop { background: var(--scrim); }
     }
     function persist(next=household) {
       unsaved=true;if(storageBlocked)return false;
-      try{localStorage.setItem(storageKey,JSON.stringify(next));unsaved=false;storageNote='已保存到当前浏览器。换设备前请导出备份。';return true;}
+      try{const raw=JSON.stringify(next);localStorage.setItem(storageKey,raw);if(localStorage.getItem(storageKey)!==raw)throw new Error('readback');unsaved=false;storageNote='已保存到当前浏览器。换设备前请导出备份。';return true;}
       catch{storageNote='修改未能保存，请先导出备份。';return false;}
     }
     if(typeof HouseholdModel==='undefined'){view.innerHTML='<div class="empty" role="alert"><h2>厨房暂时没能打开</h2><p>数据没有改动。请确认页面与家庭模型文件在同一目录，再刷新重试。</p></div>';throw new Error('家庭模型未能加载');}

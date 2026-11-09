@@ -4,7 +4,8 @@ function memory() {
  const data=new Map();let failWrite=false, failRead=false;
  return {data,get failWrite(){return failWrite;},set failWrite(v){failWrite=v;},get failRead(){return failRead;},set failRead(v){failRead=v;},getStorageSync(key){if(failRead)throw new Error('read');return data.get(key)||'';},setStorageSync(key,value){if(failWrite)throw new Error('quota');data.set(key,value);}};
 }
-function setup(){const api=memory(),store=createStore(api);return {api,store,H,M,KEY,META_KEY};}
+// Existing feature scenarios start with an explicitly saved empty household.
+function setup(){const api=memory();api.data.set(KEY,JSON.stringify({schemaVersion:2,activeMealId:null,recipes:[],meals:[],menus:[],guests:[]}));const store=createStore(api);return {api,store,H,M,KEY,META_KEY};}
 function page(name,store,extras={}) {
  let definition;const calls=[];
  const wx={navigateTo:o=>calls.push(['navigateTo',o]),redirectTo:o=>calls.push(['redirectTo',o]),navigateBack:o=>calls.push(['navigateBack',o]),switchTab:o=>calls.push(['switchTab',o]),showToast:o=>calls.push(['toast',o]),showModal:o=>{calls.push(['modal',o]);o.success({confirm:extras.confirm!==false,content:extras.content||''});},...extras.wx};

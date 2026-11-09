@@ -6,7 +6,7 @@ const { join } = require('node:path');
 const vm = require('node:vm');
 const { createHash } = require('node:crypto');
 
-const inputFiles = ['weekend-menu-prototype.html', 'weekend-household-model.js', 'weekend-menu-phone.cjs', 'weekend-menu-c.css'];
+const inputFiles = ['weekend-menu-prototype.html', 'weekend-household-model.js', 'weekend-household-seed.js', 'weekend-menu-phone.cjs', 'weekend-menu-c.css'];
 const inputHashes = () => Object.fromEntries(inputFiles.map(file => [file, createHash('sha256').update(readFileSync(join(__dirname, file))).digest('hex')]));
 const initialHashes = inputHashes();
 
@@ -106,6 +106,15 @@ async function run() {
       assert.equal(result.status, 404);
       assert.equal(result.body, '页面不存在。');
     }
+  });
+  check('页面引用的所有本地脚本均可从手机入口获取，初始数据路径也拒绝变体', () => {
+    for (const [, src] of html.matchAll(/<script src="\.\/([^"]+)"/g)) {
+      const get = request('GET', '/' + src), head = request('HEAD', '/' + src);
+      assert.equal(get.status, 200); assert.equal(get.body.toString(), readFileSync(join(__dirname, src), 'utf8'));
+      assert.equal(get.headers['Content-Type'], 'application/javascript; charset=utf-8');
+      assert.equal(head.status, 200); assert.equal(head.body, undefined);
+    }
+    for (const url of ['/nested/weekend-household-seed.js', '/%77eekend-household-seed.js', '/../weekend-household-seed.js']) assert.equal(request('GET', url).status, 404);
   });
   check('手机入口拒绝写操作', () => {
     for (const method of ['POST', 'PUT', 'DELETE', 'PATCH']) {
@@ -713,7 +722,7 @@ async function run() {
       clearTimeout() {},
       localStorage: {
         getItem(key) { if (options.readError) throw new Error('storage read blocked'); return storage.get(key) ?? null; },
-        setItem(key, value) { writes += 1; if (options.writeError) throw new Error('storage write blocked'); storage.set(key, value); },
+        setItem(key, value) { writes += 1; if (options.writeError) throw new Error('storage write blocked'); if (!options.dropWrite) storage.set(key, value); },
       },
       sessionStorage: {
         getItem(key) { if (options.sessionReadError) throw new Error('session read blocked'); return session.get(key) ?? null; },
@@ -730,8 +739,8 @@ async function run() {
     for (const script of markup.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script\s*>/gi)) {
       const source = script[1].match(/\bsrc\s*=\s*["']([^"']+)["']/i);
       if (source) {
-        assert.equal(source[1], './weekend-household-model.js', '只加载显式允许的本地模型脚本');
-        const scriptPath = join(__dirname, 'weekend-household-model.js');
+        assert.ok(['./weekend-household-model.js','./weekend-household-seed.js'].includes(source[1]), '只加载显式允许的本地模型及初始数据脚本');
+        const scriptPath = join(__dirname, source[1]);
         vm.runInContext(readFileSync(scriptPath, 'utf8'), page, { filename: scriptPath, timeout: 1000 });
       } else vm.runInContext(script[2], page, { filename, timeout: 1000 });
     }
@@ -946,11 +955,11 @@ async function run() {
     assert.equal(page.writes(), writes);
   });
 
-  check('家庭 UI：真正首次使用为空，首页选菜和菜谱链接入口可达且不写入', () => {
-    const page = loadPage(undefined, { firstUse: true });
+  check('家庭 UI：已保存空库保持为空，首页选菜和菜谱链接入口可达且不写入', () => {
+    const page = loadPage({ schemaVersion: 2, activeMealId: null, meals: [], recipes: [], menus: [], guests: [] }, { household: true });
     assert.deepEqual(page.household(), { schemaVersion: 2, activeMealId: null, meals: [], recipes: [], menus: [], guests: [] });
     assert.equal(page.legacyRaw(), undefined);
-    assert.equal(page.householdRaw(), undefined);
+    assert.deepEqual(page.storedHousehold(), page.household());
     assert.equal(page.node('screen-next').dataset.action, 'new-meal');
     page.click(page.node('screen-next'));
     assert.equal(page.location.hash, '#select');

@@ -13,6 +13,7 @@ const target = id => ({currentTarget:{dataset:{id}}});
 
 function harness() {
   const disk = new Map(), navigation = [], toasts = [], dialogs = [], writes = [];
+  disk.set(KEY, JSON.stringify({schemaVersion:2,activeMealId:null,recipes:[],meals:[],menus:[],guests:[]}));
   const faults = {primary:false, metadata:false, clear:false, readback:false};
   let badRead = false;
   const api = {
@@ -70,7 +71,7 @@ function addOwnRecipe(h, name = '家常汤') {
   return h.store.get().recipes.at(-1);
 }
 
-test('library only seeds explicitly, searches names/materials and routes menu editing', () => {
+test('saved empty library adds examples explicitly, searches names/materials and routes menu editing', () => {
   const h = harness(), page = h.page('library');
   page.onShow();
   assert.equal(h.tab.active, 'library');

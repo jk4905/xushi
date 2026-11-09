@@ -201,22 +201,61 @@ function assertPendingFailure(page, clock) {
   assert.doesNotMatch(page.node('message').textContent, /已保存|已安排|已取消|已记为/);
 }
 
-check('共享桩默认显式 v1 fixture，firstUse 真空且真实 URL 构造与 Blob 下载同时可用', async () => {
+check('全新存储自动保存获准试用数据；重开不重复，真实 URL 与备份导出可用', async () => {
   const legacy = loadPage();
   assert.ok(legacy.legacyRaw());
   assert.equal(legacy.household().recipes.length, 3);
   const first = loadPage(undefined, { firstUse: true });
   assert.equal(first.legacyRaw(), undefined);
-  assert.equal(first.householdRaw(), undefined);
-  for (const field of ['meals', 'recipes', 'menus', 'guests']) assert.deepEqual(first.household()[field], []);
-  assert.equal(first.writes(), 0);
+  const seed = require('./weekend-household-seed.js');
+  assert.deepEqual(first.household(), seed);
+  assert.deepEqual(first.storedHousehold(), seed);
+  assert.equal(first.writes(), 1);
+  assert.equal(seed.recipes.length, 3); assert.equal(seed.meals.length, 2);
+  assert.equal(activeMeal(first).title, '今晚这餐');
+  assert.equal(activeMeal(first).data.items.filter(item => item.status === 'bought').length, 13);
+  const again = loadPage(first.storedHousehold(), { household: true });
+  assert.deepEqual(again.household(), seed); assert.equal(again.writes(), 0);
+  again.click(again.node('screen-next')); again.purchase('bacon', false);
+  const edited = loadPage(again.storedHousehold(), { household: true });
+  assert.equal(activeMeal(edited).data.items.find(item => item.id === 'bacon').status, 'unchecked');
+  assert.equal(edited.writes(), 0);
   assert.equal(first.evaluate('new URL("/a", "https://example.com").href'), 'https://example.com/a');
   first.go('backup'); first.click(first.button('export'));
   assert.deepEqual(JSON.parse(await first.downloads[0].blob.text()), first.household());
 });
 
+check('初始化写入失败提示未保存，恢复后正常操作保存一次且不重复餐次', () => {
+  for (const failure of ['writeError', 'dropWrite']) {
+  const options = { firstUse: true, [failure]: true }, page = loadPage(undefined, options);
+  assert.equal(page.householdRaw(), undefined);
+  assert.equal(page.node('save-warning').hidden, false);
+  assert.match(page.node('save-warning-text').textContent, /试用数据暂未保存/);
+  const before = page.household();
+  options[failure] = false;
+  page.click(page.node('screen-next')); page.purchase('bacon', false);
+  assert.equal(page.node('save-warning').hidden, true);
+  assert.equal(page.storedHousehold().meals.length, 2);
+  assert.deepEqual(page.storedHousehold().recipes, before.recipes);
+  assert.deepEqual(loadPage(page.storedHousehold(), { household: true }).household(), page.household());
+  }
+});
+
+check('已有损坏或空字符串记录不触发试用数据覆盖，旧 v1 仍优先迁移', () => {
+  for (const invalid of ['', 'null', 'false', '{broken']) {
+    const page = loadPage(invalid, { household: true });
+    assert.equal(page.householdRaw(), invalid); assert.equal(page.writes(), 0);
+    assert.equal(page.node('save-warning').hidden, false);
+  }
+  const legacy = loadPage();
+  assert.equal(legacy.household().meals.length, 1);
+  assert.equal(activeMeal(legacy).title, '周末晚餐');
+  assert.equal(legacy.writes(), 0);
+});
+
 check('两个 Tab、二级全部餐次与设置、单一屏幕 CTA 和返回语义', () => {
   for (const page of [loadPage(), loadPage(undefined, { firstUse: true })]) {
+    const writes = page.writes();
     assert.deepEqual(page.node('tabbar').querySelectorAll('[data-tab]').map(node => node.dataset.tab), ['home', 'library']);
     assert.equal(page.node('view').querySelector('[data-action="use-menu"]'), null);
     assert.equal(page.node('view').querySelector('[data-action="new-meal"]'), null);
@@ -232,12 +271,12 @@ check('两个 Tab、二级全部餐次与设置、单一屏幕 CTA 和返回语�
     assert.equal(page.location.hash, '#backup');
     page.click(page.button('back'));
     assert.equal(page.location.hash, '#library');
-    assert.equal(page.writes(), 0);
+    assert.equal(page.writes(), writes);
   }
 });
 
-check('首次使用：链接选菜、空购物直接下厨、取消完成保留，再确认完成只记一次', () => {
-  const page = loadPage(undefined, { firstUse: true });
+check('空库：链接选菜、空购物直接下厨、取消完成保留，再确认完成只记一次', () => {
+  const page = loadPage({schemaVersion:2,activeMealId:null,recipes:[],meals:[],menus:[],guests:[]}, { household: true });
   page.click(page.node('screen-next'));
   assert.equal(page.location.hash, '#select');
   assert.equal(page.node('screen-next').disabled, true);

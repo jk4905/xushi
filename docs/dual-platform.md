@@ -16,6 +16,7 @@
 | 餐次模型 | HTML 的 `script#meal-logic` | `core/meal.js` | H5 为源，生成小程序副本 |
 | 家庭 / 菜谱 / 菜单模型 | `weekend-household-model.js` | `core/household.js` | H5 为源，生成并保留平台适配 |
 | 原始三道菜谱 | HTML 的 `beefSteps` 等数据 | `core/content.js` | 从 H5 原文生成，不推测缺失内容 |
+| 试用初始数据 | `weekend-household-seed.js` | `core/seed.js` | H5 为源，随 `npm run sync` 生成；只在本地没有主记录时初始化 |
 | 存储 / 恢复 | HTML 中的 localStorage、草稿与位置处理 | `core/store.js`、`core/adjustment.js` | 平台独立；共同验证数据结果 |
 | 原始动作图 | HTML 的 SVG 图示 | `assets/*.png` | 已提供 PNG；图示变化时用现有 `sync-h5.cjs --images` 重新生成 |
 
@@ -53,6 +54,6 @@
 
 ## 自动检查能证明什么
 
-`npm run check:sync` 会重新计算三个生成文件并与磁盘内容比较，漂移时失败，且不自动修改源文件或生成文件。它能发现模型副本漏更新或被手改，不能发现界面需求只做了一端。
+`npm run check:sync` 会重新计算四个生成文件并与磁盘内容比较，漂移时失败，且不自动修改源文件或生成文件。它能发现模型与初始数据副本漏更新或被手改，不能发现界面需求只做了一端。
 
 GitHub Actions 在 push / PR 执行全部回归和一致性检查。两端界面是否都落实需求，仍需代码评审、PR 清单与两端运行证据。不要以测试数量替代体验验收。
